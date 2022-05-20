@@ -1,0 +1,42 @@
+:root {
+    --bs-font-sans-serif: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+body {
+    min-width: 450px;
+}
+.card {
+    border-radius: 0;
+    border: none;
+    box-shadow: none;
+}
+.fe {
+    position: relative;
+    top: 1px;
+}
+.btn {
+    font-weight: 500;
+}
+.bg-success {
+    background-color: #28a745 !important;
+}
+.form-control.is-valid, .was-validated .form-control:valid, .form-control.is-valid:focus, .was-validated .form-control:valid:focus, .input-group-merge>.form-control.is-valid+.input-group-text, .form-control.is-valid, .was-validated .form-control:valid {
+    border-color: #28a745;
+}
+input[type="radio"]:checked+label .fe-circle {
+    display: none;
+}
+input[type="radio"]:not(:checked)+label .fe-check-circle {
+    display: none;
+}
+.btn:disabled {
+    cursor: not-allowed !important;
+    pointer-events: all !important;
+}
+.top-up {
+    position: relative;
+    top: -2px;
+}
+.swal2-popup.swal2-toast .swal2-title {
+    grid-row: 1/99;
+    align-self: center;
+}

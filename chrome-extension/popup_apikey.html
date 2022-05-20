@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+<head>
+    <link href="css/theme.bundle.css" rel="stylesheet">
+    <link href="css/custom.css" rel="stylesheet">
+</head>
+<body class="bg-white">
+    <div class="card">
+        <div class="card-header justify-content-between align-items-center">
+            <div class="d-flex align-items-center">
+                <img src="img/ou.jpg" width="18" height="33" class="me-4">
+                <h1 class="card-header-title">Cookie Helper</h1>
+            </div>
+            <button type="button" class="btn btn-white py-2 px-3" id="btn_goto_main" title="Home" disabled><img src="img/home.svg" alt="Home" class="top-up" height="18" width="18"></button>
+        </div>
+        <div class="card-body">
+            <div class="card-text">
+                <div class="d-flex justify-content-between">
+                    <h2 class="h3 mb-3">API Key</h2>
+                    <div>
+                        <span class="badge bg-success align-top" title="Valid API Key" id="badge_valid" style="display:none;"><span class="fe fe-check"></span></span>
+                        <span class="badge bg-danger align-top" title="Invalid API Key" id="badge_invalid" style="display:none;"><span class="fe fe-x"></span></span>
+                    </div>
+                </div>
+                <div class="input-group input-group-merge input-group-reverse mb-3">
+                    <input class="form-control" placeholder="Please enter a valid API key..." type="password" id="input_api_key">
+                    <div class="input-group-text">
+                        <button type="button" class="btn p-0" id="btn_show_api_key"><span class="fe fe-eye-off"></span></button>
+                        <button type="button" class="btn p-0" id="btn_hide_api_key" style="display:none;"><span class="fe fe-eye"></span></button>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-end">
+                    <button type="button" class="btn btn-primary btn-smX" id="btn_save_api_key" disabled><span class="fe fe-save me-1"></span> Check &amp; Save</button>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <div class="d-flex align-items-center justify-content-between">
+                <div>
+                    <small class="text-muted">&copy; <span id="year"></span> &#8212; Koen Berkhout</small>
+                </div>
+                <a href="https://github.com/koenberkhout/Dark-Patterns-Cookie-Helper" target="_blank" title="View project on Github" class="text-muted"><i class="fe fe-github"></i></a>
+            </div>
+        </div>
+    </div>
+    <script src="js/lib/sweetalert2.all.min.js"></script>
+    <script src="js/conf.js"></script>
+    <script src="js/common.js"></script>
+    <script src="js/popup_apikey.js"></script>
+</body>
+</html>

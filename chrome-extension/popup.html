@@ -1,0 +1,93 @@
+<!doctype html>
+<html>
+<head>
+    <link href="css/theme.bundle.css" rel="stylesheet">
+    <link href="css/custom.css" rel="stylesheet">
+</head>
+<body class="bg-white">
+    <div class="card">
+        <div class="card-header justify-content-between align-items-center">
+            <div class="d-flex align-items-center">
+                <img src="img/ou.jpg" width="18" height="33" class="me-4">
+                <h1 class="card-header-title">Cookie Helper</h1>
+            </div>
+            <button type="button" class="btn btn-white py-2 px-3" id="btn_goto_apikey" title="API Key"><img src="img/key.svg" class="top-up" alt="API Key" height="18" width="18"></button>
+        </div>
+        <div class="card-body">
+            <!-- <button type="button" class="btn btn-primary btn-sm" id="btn_test">TEST</button><hr> -->
+            <div class="card-text">
+                <h2 class="h3 mb-1">Mode</h2>
+                <div class="small text-muted mb-3">For future requests</div>
+                <div class="row btn-group-toggle text-center">
+                    <div class="col">
+                        <div>
+                            <input type="radio" class="btn-check" name="mode" id="initial" autocomplete="off" checked>
+                            <label class="btn btn-white w-100 text-nowrap" for="initial">
+                                <span class="me-1"><i class="fe fe-circle"></i><i class="fe fe-check-circle"></i></span> Initial
+                            </label>
+                        </div>
+                        <small class="text-muted"><span id="completed_initial">-</span>/<span class="count_total">-</span></small>
+                    </div>
+                    <div class="col">
+                        <div>
+                            <input type="radio" class="btn-check" name="mode" id="accept_all" autocomplete="off">
+                            <label class="btn btn-white w-100 text-nowrap" for="accept_all">
+                                <span class="me-1"><i class="fe fe-circle"></i><i class="fe fe-check-circle"></i></span> Accept All
+                            </label>
+                        </div>
+                        <small class="text-muted"><span id="completed_accept_all">-</span>/<span class="count_total">-</span></small>
+                    </div>
+                    <div class="col">
+                        <div>
+                            <input type="radio" class="btn-check" name="mode" id="deny_all" autocomplete="off">
+                            <label class="btn btn-white w-100 text-nowrap" for="deny_all">
+                                <span class="me-1"><i class="fe fe-circle"></i><i class="fe fe-check-circle"></i></span> Deny All
+                            </label>
+                        </div>
+                        <small class="text-muted"><span id="completed_deny_all">-</span>/<span class="count_total">-</span></small>
+                    </div>
+                </div>
+                <hr>
+                <div class="d-flex justify-content-between">
+                    <h2 class="h3 mb-3">Website</h2>
+                    <div>
+                        <span class="badge bg-light align-top"><i class="fe fe-bell me-1"></i> Current mode: <span class="fw-bold" id="current_mode">None</span></span>
+                    </div>
+                </div>
+                <div class="d-flex mb-3">
+                    <div class="input-group input-group-merge input-group-reverse">
+                        <input class="form-control text-dark" placeholder="Press 'Next' to start" type="text" id="input_website" disabled>
+                        <div class="input-group-text" id="inputGroupReverse">
+                            <span class="fe fe-globe text-secondary"></span>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-white btn-sm ms-2" id="btn_clear_revisit" title="Clear all browsing data and re-visit the website with the (newly) selected mode." disabled><span class="fe fe-refresh-cw px-1"></span></button>
+                </div>
+                <div class="action-row row">
+                    <div class="col">
+                        <button type="button" class="d-block w-100 btn btn-primary btn-lg mb-2" id="btn_visit_next"><span class="fe fe-navigation me-2"></span> Next</button>
+                        <span class="fe fe-info text-secondary"></span> <small class="text-secondary">Clear all browsing data and load the next unvisited website for the (newly) selected mode.</small>
+                    </div>
+                    <div class="col">
+                        <button type="button" class="d-block w-100 btn btn-primary btn-lg mb-2" id="btn_record_cookies" title="This option is only available directly after visiting a website." disabled><span class="fe fe-database me-2"></span> Record</button>
+                        <span class="fe fe-info text-secondary"></span> <small class="text-secondary">Link <i>all</i> cookies to the website and current mode and send this data to the server.</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <div class="d-flex align-items-center justify-content-between">
+                <div>
+                    <small class="text-muted">&copy; <span id="year"></span> &#8212; Koen Berkhout</small>
+                </div>
+                <a href="https://github.com/koenberkhout/Dark-Patterns-Cookie-Helper" target="_blank" title="View project on Github" class="text-muted"><i class="fe fe-github"></i></a>
+            </div>
+        </div>
+    </div>
+    <script src="js/lib/lodash.min.js"></script>
+    <script src="js/lib/sweetalert2.all.min.js"></script>
+    <script src="js/conf.js"></script>
+    <script src="js/common.js"></script>
+    <script src="js/popup.js"></script>
+</body>
+</html>

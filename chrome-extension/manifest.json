@@ -1,0 +1,42 @@
+{
+  "name": "Cookie Helper",
+  "version": "1.0",
+  "manifest_version": 2,
+  "description": "This extension visits websites semi-automatically, and records all placed cookies and the number of clicks required to accept all/deny all.",
+  "homepage_url": "https://github.com/koenberkhout/Dark-Patterns-Cookie-Helper",
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "content_scripts": [
+    {
+      "run_at" : "document_start",
+      "js": ["js/before.js"],
+      "matches": [
+        "https://*/*",
+        "http://*/*"
+      ]
+    }
+  ],
+  "background": {
+    "scripts": [
+      "js/background.js"
+    ],
+    "persistent": true
+  },
+  "browser_action": {
+    "default_icon": "icons/icon19.png",
+    "default_title": "Cookie Helper"
+  },
+  "permissions": [
+    "notifications",
+    "browsingData",
+    "activeTab",
+    "tabs",
+    "cookies",
+    "storage",
+    "https://*/*",
+    "http://*/*"
+  ]
+}
