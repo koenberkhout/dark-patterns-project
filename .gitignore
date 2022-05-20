@@ -1,4 +1,5 @@
 *.code-workspace
+vendor/
 conf.js
 .env
 .DS_Store
