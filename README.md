@@ -9,3 +9,4 @@
 - Put the contents of the `public_html` directory in the public root of your host (this may be called *public_html*, *www*, or something similar).
 - Put the `application` directory on the same level as the `public_html` directory.
 - Make sure the full path of the `application` directory is listed in PHP's include path. Usually this looks something like `/home/username/domains/example.com/application`.
+- Install the dependencies using Composer by running `composer update` (using composer.json) or `composer install` (using composer.json locked to the versions in composer.lock).
