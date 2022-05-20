@@ -1,2 +1,4 @@
+*.code-workspace
+conf.js
 .env
 .DS_Store
