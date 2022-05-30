@@ -40,7 +40,11 @@ btnSaveApiKey.addEventListener("click", saveApiKey);
 })();
 
 function goToMainPage() {
-    chrome.browserAction.setPopup({popup: 'popup.html'}, window.location.href = "popup.html");
+    chrome.browserAction.setPopup({popup: 'popup.html'}, setHref);
+}
+
+function setHref() {
+    window.location.href = "popup.html";
 }
 
 function showApiKey() {

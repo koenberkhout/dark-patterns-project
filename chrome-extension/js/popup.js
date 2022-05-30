@@ -1,31 +1,35 @@
 const BADGE_CONFIG = {
-    initial:    ['init',   '#007bff', "INITIAL (DO NOTHING)", "color_initial.png", "Do nothing and open the extension popup to record the results."],
-    accept_all: ['accept', '#28a745', "ACCEPT ALL", "color_accept_all.png", "Do 'Accept All' and open the extension popup to record the results."],
-    deny_all:   ['deny',   '#dc3545', "DENY ALL", "color_deny_all.png", "Do 'Deny All' and open the extension popup to record the results."]
+    initial:       ['initial',  '#007bff', "INITIAL (DO NOTHING)", "color_initial.png", "Do nothing and open the extension popup to record the results."],
+    accept_all:    ['accept',   '#28a745', "ACCEPT ALL", "color_accept_all.png", "Do 'Accept All' and open the extension popup to record the results."],
+    deny_basic:    ['basic',    '#fd7e14', "DENY (BASIC)", "color_deny_basic.png", "Do 'Deny (Basic)' and open the extension popup to record the results."],
+    deny_advanced: ['advanced', '#dc3545', "DENY (ADVANCED)", "color_deny_advanced.png", "Do 'Deny (Advanced)' and open the extension popup to record the results."]
 }
 
 const MODE_DICT = {
-    initial:    'Initial',
-    accept_all: 'Accept All',
-    deny_all:   'Deny All'
+    initial:       'Initial',
+    accept_all:    'Accept All',
+    deny_basic:    'Deny (Basic)',
+    deny_advanced: 'Deny (Advanced)'
 };
 
 const URL_STATS          = API_URL + '/stats';
 const URL_NEXT_WEBSITE   = API_URL + '/next-website/@mode';
 const URL_REPORT_COOKIES = API_URL + '/report-cookies/@mode/@url';
 
-const year               = document.getElementById("year");
-const btnGotoApikey      = document.getElementById("btn_goto_apikey");
-const inputWebsite       = document.getElementById("input_website");
-const btnVisitNext       = document.getElementById("btn_visit_next");
-const btnRecordCookies   = document.getElementById("btn_record_cookies");
-const btnClearRevisit    = document.getElementById("btn_clear_revisit");
-const btnTest            = document.getElementById("btn_test");
-const txtCurrentMode     = document.getElementById("current_mode");
-const countTotals        = document.getElementsByClassName("count_total");
-const completedInitial   = document.getElementById("completed_initial");
-const completedAcceptAll = document.getElementById("completed_accept_all");
-const completedDenyAll   = document.getElementById("completed_deny_all");
+const year                  = document.getElementById("year");
+const btnGotoApikey         = document.getElementById("btn_goto_apikey");
+const inputWebsite          = document.getElementById("input_website");
+const btnVisitNext          = document.getElementById("btn_visit_next");
+const btnRecordCookies      = document.getElementById("btn_record_cookies");
+const btnClearRevisit       = document.getElementById("btn_clear_revisit");
+const btnTest               = document.getElementById("btn_test");
+const txtCurrentMode        = document.getElementById("current_mode");
+const countTotals           = document.getElementsByClassName("count_total");
+const inputReasons          = document.getElementsByClassName("input-reason");
+const completedInitial      = document.getElementById("completed_initial");
+const completedAcceptAll    = document.getElementById("completed_accept_all");
+const completedDenyBasic    = document.getElementById("completed_deny_basic");
+const completedDenyAdvanced = document.getElementById("completed_deny_advanced");
 
 let futureMode  = 'initial';
 let currentMode = null;
@@ -71,7 +75,12 @@ document.querySelectorAll("input[name='mode']").forEach((option) => {
         if (data.btn_record_enabled) {
             btnRecordCookies.title = "";
             btnRecordCookies.disabled = false;
+            Array.from(inputReasons).forEach((elem) => {
+                elem.disabled = false;
+            });
             chrome.storage.local.set({ btn_record_enabled: false });
+        } else {
+            btnVisitNext.disabled = false;
         }
     });
 })();
@@ -85,8 +94,9 @@ function fetchStats() {
                 title: 'Could not connect to the server.'
             });
             console.log(res);
+        } else {
+            res.json().then(stats => updateStats(stats));
         }
-        res.json().then(stats => updateStats(stats));
     });
 }
 
@@ -94,9 +104,10 @@ function updateStats(stats) {
     Array.from(countTotals).forEach((elem) => {
         elem.textContent = stats['count_total'];
     });
-    completedInitial.textContent   = stats['completed_initial'];
-    completedAcceptAll.textContent = stats['completed_accept_all'];
-    completedDenyAll.textContent   = stats['completed_deny_all'];
+    completedInitial.textContent      = stats['completed_initial'];
+    completedAcceptAll.textContent    = stats['completed_accept_all'];
+    completedDenyBasic.textContent    = stats['completed_deny_basic'];
+    completedDenyAdvanced.textContent = stats['completed_deny_advanced'];
 }
 
 function handleModeChange(e) {
@@ -130,7 +141,11 @@ function setActionBadgeAndNotification() {
 }
 
 function goToApiKeyPage() {
-    chrome.browserAction.setPopup({popup: 'popup_apikey.html'}, window.location.href = "popup_apikey.html");
+    chrome.browserAction.setPopup({popup: 'popup_apikey.html'}, setHref);
+}
+
+function setHref() {
+    window.location.href = "popup_apikey.html";
 }
 
 function visitNextWebsite() {
@@ -166,9 +181,10 @@ function visitNextWebsite() {
 
 function recordCookiesAndClicks() {
     btnRecordCookies.disabled = true;
+    btnVisitNext.disabled = false;
     
-    chrome.storage.local.get('click_count', (data) => {
-        let clickCount = data.click_count;
+    chrome.storage.local.get('clicks', (data) => {
+        let clicks = data.clicks;
         chrome.cookies.getAll({}, (cookies) => {
             cookies = cookies.map(cookie => _.mapKeys(cookie, (v, k) => _.snakeCase(k)));
             cookies.forEach((cookie) => {
@@ -181,7 +197,7 @@ function recordCookiesAndClicks() {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    click_count: clickCount,
+                    clicks: clicks,
                     cookies: cookies
                 })
             })

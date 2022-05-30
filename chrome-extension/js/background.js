@@ -3,7 +3,7 @@ chrome.browserAction.setPopup({popup: 'popup_apikey.html'});
 chrome.browserAction.setBadgeText({ text: '' });
 chrome.storage.local.remove('notification');
 chrome.storage.local.set({ btn_record_enabled: false });
-chrome.storage.local.set({ 'click_count': 0 });
+chrome.storage.local.set({ 'clicks': 0 });
 
 // Set popup for authenticated users
 chrome.storage.local.get('authenticated', (data) => {
@@ -40,7 +40,7 @@ chrome.runtime.onMessage.addListener(data => {
                 "serviceWorkers": true,
                 "webSQL": true
             }, 
-            chrome.storage.local.set({ 'click_count': 0 }, 
+            chrome.storage.local.set({ 'clicks': 0 }, 
             chrome.tabs.update({ url: new URL("https://" + data.options.url).toString(), active: true }))
         );
     }
@@ -49,8 +49,8 @@ chrome.runtime.onMessage.addListener(data => {
 // Measure clicks
 chrome.runtime.onMessage.addListener(message => {
     if (message === 'clicked') {
-        chrome.storage.local.get('click_count', (data) => {
-            chrome.storage.local.set({'click_count' : (data.click_count + 1)});
+        chrome.storage.local.get('clicks', (data) => {
+            chrome.storage.local.set({'clicks' : (data.clicks + 1)});
         });
     }
 });
