@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: May 20, 2022 at 08:33 PM
+-- Generation Time: May 30, 2022 at 04:43 PM
 -- Server version: 10.5.15-MariaDB-cll-lve-log
 -- PHP Version: 7.3.33
 
@@ -51,27 +51,30 @@ CREATE TABLE `cookies` (
 
 CREATE TABLE `websites` (
   `url` varchar(256) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `initial_fetch_count` int(11) NOT NULL DEFAULT 0,
+  `initial_fetches` int(11) NOT NULL DEFAULT 0,
   `initial_completed` datetime DEFAULT NULL,
-  `accept_all_fetch_count` int(11) NOT NULL DEFAULT 0,
+  `accept_all_fetches` int(11) NOT NULL DEFAULT 0,
   `accept_all_completed` datetime DEFAULT NULL,
-  `accept_all_click_count` int(11) DEFAULT NULL,
-  `deny_all_fetch_count` int(11) NOT NULL DEFAULT 0,
-  `deny_all_completed` datetime DEFAULT NULL,
-  `deny_all_click_count` int(11) DEFAULT NULL
+  `accept_all_clicks` int(11) DEFAULT NULL,
+  `deny_basic_fetches` int(11) NOT NULL DEFAULT 0,
+  `deny_basic_completed` datetime DEFAULT NULL,
+  `deny_basic_clicks` int(11) DEFAULT NULL,
+  `deny_advanced_fetches` int(11) NOT NULL DEFAULT 0,
+  `deny_advanced_completed` datetime DEFAULT NULL,
+  `deny_advanced_clicks` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `websites`
 --
 
-INSERT INTO `websites` (`url`, `initial_fetch_count`, `initial_completed`, `accept_all_fetch_count`, `accept_all_completed`, `accept_all_click_count`, `deny_all_fetch_count`, `deny_all_completed`, `deny_all_click_count`) VALUES
-('apple.com', 0, NULL, 0, NULL, NULL, 0, NULL, NULL),
-('cnn.com', 0, NULL, 0, NULL, NULL, 0, NULL, NULL),
-('google.com', 0, NULL, 0, NULL, NULL, 0, NULL, NULL),
-('microsoft.com', 0, NULL, 0, NULL, NULL, 0, NULL, NULL),
-('omroepbrabant.nl', 0, NULL, 0, NULL, NULL, 0, NULL, NULL),
-('ou.nl', 0, NULL, 0, NULL, NULL, 0, NULL, NULL);
+INSERT INTO `websites` (`url`, `initial_fetches`, `initial_completed`, `accept_all_fetches`, `accept_all_completed`, `accept_all_clicks`, `deny_basic_fetches`, `deny_basic_completed`, `deny_basic_clicks`, `deny_advanced_fetches`, `deny_advanced_completed`, `deny_advanced_clicks`) VALUES
+('apple.com', 0, NULL, 0, NULL, NULL, 0, NULL, NULL, 0, NULL, NULL),
+('cnn.com', 0, NULL, 0, NULL, NULL, 0, NULL, NULL, 0, NULL, NULL),
+('google.com', 0, NULL, 0, NULL, NULL, 0, NULL, NULL, 0, NULL, NULL),
+('microsoft.com', 0, NULL, 0, NULL, NULL, 0, NULL, NULL, 0, NULL, NULL),
+('omroepbrabant.nl', 0, NULL, 0, NULL, NULL, 0, NULL, NULL, 0, NULL, NULL),
+('ou.nl', 0, NULL, 0, NULL, NULL, 0, NULL, NULL, 0, NULL, NULL);
 
 --
 -- Indexes for dumped tables
