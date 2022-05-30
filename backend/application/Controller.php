@@ -2,7 +2,7 @@
 
 class Controller {
 
-    private $MODES = array('initial', 'accept_all', 'deny_all');
+    private $MODES = array('initial', 'accept_all', 'deny_basic', 'deny_advanced');
 
     private $HTTP_STATUSES = array(
         400 => 'Bad Request',
@@ -39,16 +39,18 @@ class Controller {
             echo json_encode("");
             die;
         }
-        $count_total          = count($result);
-        $completed_initial    = count(array_filter($result, fn ($item) => $item['initial_completed'] !== null));
-        $completed_accept_all = count(array_filter($result, fn ($item) => $item['accept_all_completed'] !== null));
-        $completed_deny_all   = count(array_filter($result, fn ($item) => $item['deny_all_completed'] !== null));
+        $count_total             = count($result);
+        $completed_initial       = count(array_filter($result, fn ($item) => $item['initial_completed'] !== null));
+        $completed_accept_all    = count(array_filter($result, fn ($item) => $item['accept_all_completed'] !== null));
+        $completed_deny_basic    = count(array_filter($result, fn ($item) => $item['deny_basic_completed'] !== null));
+        $completed_deny_advanced = count(array_filter($result, fn ($item) => $item['deny_advanced_completed'] !== null));
 
         echo json_encode(array(
-            'count_total'          => $count_total,
-            'completed_initial'    => $completed_initial,
-            'completed_accept_all' => $completed_accept_all,
-            'completed_deny_all'   => $completed_deny_all
+            'count_total'             => $count_total,
+            'completed_initial'       => $completed_initial,
+            'completed_accept_all'    => $completed_accept_all,
+            'completed_deny_basic'    => $completed_deny_basic,
+            'completed_deny_advanced' => $completed_deny_advanced
         ));
     }
 
@@ -59,16 +61,16 @@ class Controller {
         if (!in_array($mode, $this->MODES)) {
             $this->dieWith(400);
         }
-        $column_completed   = $mode . '_completed';
-        $column_fetch_count = $mode . '_fetch_count';
+        $column_completed = $mode . '_completed';
+        $column_fetches   = $mode . '_fetches';
         
-        $result = $f3->db->exec("SELECT * FROM `websites` WHERE `{$column_completed}` IS NULL ORDER BY `{$column_fetch_count}` LIMIT 1");
+        $result = $f3->db->exec("SELECT * FROM `websites` WHERE `{$column_completed}` IS NULL ORDER BY `{$column_fetches}` LIMIT 1");
         if (!$result) {
             echo json_encode("");
             die;
         }
         $website = $result[0]['url'];
-        $f3->db->exec("UPDATE `websites` SET `{$column_fetch_count}` = `{$column_fetch_count}` + 1 WHERE `url` = '{$website}'");
+        $f3->db->exec("UPDATE `websites` SET `{$column_fetches}` = `{$column_fetches}` + 1 WHERE `url` = '{$website}'");
 
         echo json_encode($website);
     }
@@ -92,11 +94,11 @@ class Controller {
 
         // Extract data from POST
         $data = json_decode($f3->BODY, false);
-        if (!$data || !isset($data->click_count) || !isset($data->cookies) || !is_array($data->cookies)) {
+        if (!$data || !isset($data->clicks) || !isset($data->cookies) || !is_array($data->cookies)) {
             $this->dieWith(400);
         }
-        $click_count = $data->click_count;
-        $cookies     = $data->cookies;
+        $clicks  = $data->clicks;
+        $cookies = $data->cookies;
 
         // Ensure that query params and cookie fields match
         $cookiesFiltered = array_filter($cookies, fn ($cookie) => $cookie->url === $url && $cookie->mode === $mode);
@@ -114,8 +116,8 @@ class Controller {
             $cookie_mapper->reset();
         }
         if ($mode !== 'initial') {
-            $column_click_count = $mode . '_click_count';
-            $f3->db->exec("UPDATE `websites` SET `{$column_click_count}` = (?) WHERE `url` = (?)", array($click_count, $url));
+            $column_clicks = $mode . '_clicks';
+            $f3->db->exec("UPDATE `websites` SET `{$column_clicks}` = (?) WHERE `url` = (?)", array($clicks, $url));
         }
         $column_completed = $mode . '_completed';
         $f3->db->exec("UPDATE `websites` SET `{$column_completed}` = NOW() WHERE `url` = (?)", array($url));
