@@ -181,10 +181,16 @@ function visitNextWebsite() {
 
 function recordCookiesAndClicks() {
     btnRecordCookies.disabled = true;
+    Array.from(inputReasons).forEach((elem) => {
+        elem.disabled = true;
+    });
     btnVisitNext.disabled = false;
     
     chrome.storage.local.get('clicks', (data) => {
-        let clicks = data.clicks;
+
+        let reason = document.querySelector('input[name="reasons"]:checked').value;
+        let clicks = reason !== 'ok' ? parseInt(reason) : data.clicks;
+
         chrome.cookies.getAll({}, (cookies) => {
             cookies = cookies.map(cookie => _.mapKeys(cookie, (v, k) => _.snakeCase(k)));
             cookies.forEach((cookie) => {
