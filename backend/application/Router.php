@@ -1,10 +1,12 @@
 <?php
 
 require_once 'composer/vendor/autoload.php';
-require_once 'Controller.php';
 
 // Load environment variables from .env
 (Dotenv\Dotenv::createImmutable(__DIR__))->load();
+
+// Controller handles the requests
+require_once 'Controller.php';
 
 // Load fat-free framework
 $f3 = \Base::instance();
@@ -27,6 +29,7 @@ $f3->set('DEBUG', 3);
 // Endpoints
 $f3->route('GET  /',                          'Controller->root');
 $f3->route('GET  /stats',                     'Controller->stats');
+$f3->route('GET  /validate-key',              'Controller->validateKey');
 $f3->route('GET  /next-website/@mode',        'Controller->nextWebsite');
 $f3->route('POST /report-cookies/@mode/@url', 'Controller->reportCookiesAndClicks');
 
