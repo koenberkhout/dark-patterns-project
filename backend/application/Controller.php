@@ -66,19 +66,12 @@ class Controller {
             echo json_encode("");
             die;
         }
-        $count_total             = count($result);
-        $completed_initial       = count(array_filter($result, fn ($item) => $item['initial_completed'] !== null));
-        $completed_accept_all    = count(array_filter($result, fn ($item) => $item['accept_all_completed'] !== null));
-        $completed_deny_basic    = count(array_filter($result, fn ($item) => $item['deny_basic_completed'] !== null));
-        $completed_deny_advanced = count(array_filter($result, fn ($item) => $item['deny_advanced_completed'] !== null));
-
-        echo json_encode(array(
-            'count_total'             => $count_total,
-            'completed_initial'       => $completed_initial,
-            'completed_accept_all'    => $completed_accept_all,
-            'completed_deny_basic'    => $completed_deny_basic,
-            'completed_deny_advanced' => $completed_deny_advanced
-        ));
+        $stats = array('count_total' => count($result));
+        foreach ($this->MODES as $mode) {
+            $stats['completed_' . $mode] = count(array_filter($result, fn ($item) => $item[$mode . '_completed'] !== null));
+        }
+        
+        echo json_encode($stats);
     }
 
 
