@@ -2,7 +2,7 @@
     --bs-font-sans-serif: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 body {
-    min-width: 475px;
+    min-width: 530px;
 }
 .card {
     border-radius: 0;
@@ -38,7 +38,15 @@ input[type="radio"]:not(:checked)+label .fe-check-circle {
 }
 .top-down {
     position: relative;
-    top: 2px;
+    top: 3px;
+}
+.form-check-input.success:checked {
+    background-color: #00d97e;
+    border-color: #00d97e;
+}
+.form-check-input.danger:checked {
+    background-color: #e63757;
+    border-color: #e63757;
 }
 .swal2-popup.swal2-toast .swal2-title {
     grid-row: 1/99;
