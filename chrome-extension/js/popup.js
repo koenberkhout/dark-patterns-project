@@ -24,6 +24,7 @@ const btnRecordCookies      = document.getElementById("btn_record_cookies");
 const btnClearRevisit       = document.getElementById("btn_clear_revisit");
 const btnTest               = document.getElementById("btn_test");
 const txtCurrentMode        = document.getElementById("current_mode");
+const txtUser               = document.getElementById("user");
 const countTotals           = document.getElementsByClassName("count_total");
 const inputReasons          = document.getElementsByClassName("input-reason");
 const completedInitial      = document.getElementById("completed_initial");
@@ -53,7 +54,7 @@ document.querySelectorAll("input[name='mode']").forEach((option) => {
 (async function initPopupWindow() {
     year.textContent = new Date().getFullYear();
     chrome.browserAction.setBadgeText({ text: '' });
-    chrome.storage.local.get(['future_mode', 'current_mode', 'website', 'api_key', 'btn_record_enabled'], (data) => {
+    chrome.storage.local.get(['future_mode', 'current_mode', 'website', 'api_key', 'btn_record_enabled', 'user'], (data) => {
         if (data.future_mode) {
             futureMode = data.future_mode;
         }
@@ -71,6 +72,9 @@ document.querySelectorAll("input[name='mode']").forEach((option) => {
         if (data.api_key) {
             apiKey = data.api_key;
             fetchStats();
+        }
+        if (data.user) {
+            txtUser.textContent = data.user;
         }
         if (data.btn_record_enabled) {
             btnRecordCookies.title = "";

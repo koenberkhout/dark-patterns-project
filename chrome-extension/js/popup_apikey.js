@@ -7,6 +7,8 @@ const btnSaveApiKey = document.getElementById("btn_save_api_key");
 const badgeValid    = document.getElementById("badge_valid");
 const badgeInvalid  = document.getElementById("badge_invalid");
 
+const URL_VALIDATE_KEY = API_URL + '/validate-key';
+
 let apiKey = null;
 
 /**
@@ -77,18 +79,18 @@ function saveApiKey() {
  * TODO
  */
 function validateApiKey() {
-    fetch(prepareUrl(API_URL))
+    fetch(prepareUrl(URL_VALIDATE_KEY))
     .then(res => {
-        res.ok ? handleApiKeyValid() :  handleApiKeyInvalid();
+        res.ok ? handleApiKeyValid(res) :  handleApiKeyInvalid();
     });
 }
 
-function handleApiKeyValid() {
+function handleApiKeyValid(res) {
     inputApiKey.classList.remove("is-invalid");
     inputApiKey.classList.add("is-valid");
     badgeValid.style.display = "inline-block";
     btnGotoMain.disabled = false;
-    chrome.storage.local.set({ authenticated: true });
+    chrome.storage.local.set({ authenticated: true, user: res.headers.get('x-user') ?? "" });
     chrome.browserAction.setPopup({popup: 'popup.html'});
     TOAST.fire({
         icon:  'success',
