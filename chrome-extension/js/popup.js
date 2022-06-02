@@ -177,7 +177,7 @@ function visitNextWebsite() {
                 btnVisitNext.disabled = false;
                 TOAST.fire({
                     icon:  'warning',
-                    title: 'Already visited all websites for the current mode.'
+                    title: 'You have already visited all websites assigned to you for the current mode.'
                 });
             }
         });
