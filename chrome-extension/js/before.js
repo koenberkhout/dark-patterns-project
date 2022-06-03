@@ -16,7 +16,6 @@ chrome.storage.local.get('notification', (data) => {
 
 function afterShowNotification() {
     chrome.storage.local.remove('notification');
-    chrome.storage.local.set({ btn_record_enabled: true });
 }
 
 // Add click listener

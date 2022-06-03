@@ -54,6 +54,7 @@ document.querySelectorAll("input[name='mode']").forEach((option) => {
 (async function initPopupWindow() {
     year.textContent = new Date().getFullYear();
     chrome.browserAction.setBadgeText({ text: '' });
+    chrome.tabs.insertCSS({code: "body { display:none!important; }"});
     chrome.storage.local.get(['future_mode', 'current_mode', 'website', 'api_key', 'btn_record_enabled', 'user'], (data) => {
         if (data.future_mode) {
             futureMode = data.future_mode;
@@ -124,7 +125,7 @@ async function clearBrowsingDataAndVisitWebsite() {
     currentMode = futureMode;
     txtCurrentMode.textContent = MODE_DICT[futureMode];
     setActionBadgeAndNotification();
-    chrome.storage.local.set({ current_mode: currentMode });
+    chrome.storage.local.set({ current_mode: currentMode, btn_record_enabled: true });
     chrome.runtime.sendMessage('', {
         type: 'clear_all_and_visit',
         options: {
