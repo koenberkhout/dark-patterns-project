@@ -64,46 +64,6 @@
                             </div>
                         </div>
                     </div>
-                    <!-- <div class="row text-center">
-                        <div class="col">
-                            <div>
-                                <input type="radio" class="btn-check" name="mode" id="initial" autocomplete="off" checked>
-                                <label class="btn btn-white w-100 text-nowrap" for="initial">
-                                    <span class="me-1"><i class="fe fe-circle"></i><i class="fe fe-check-circle"></i></span> Initial
-                                </label>
-                            </div>
-                            <small class="text-muted"><span id="completed_initial">-</span>/<span class="count_total">-</span></small>
-                        </div>
-                        <div class="col">
-                            <div>
-                                <input type="radio" class="btn-check" name="mode" id="accept_all" autocomplete="off">
-                                <label class="btn btn-white w-100 text-nowrap" for="accept_all">
-                                    <span class="me-1"><i class="fe fe-circle"></i><i class="fe fe-check-circle"></i></span> Accept All
-                                </label>
-                            </div>
-                            <small class="text-muted"><span id="completed_accept_all">-</span>/<span class="count_total">-</span></small>
-                        </div>
-                    </div>
-                    <div class="row text-center mt-3">
-                        <div class="col">
-                            <div>
-                                <input type="radio" class="btn-check" name="mode" id="deny_basic" autocomplete="off">
-                                <label class="btn btn-white w-100 text-nowrap" for="deny_basic">
-                                    <span class="me-1"><i class="fe fe-circle"></i><i class="fe fe-check-circle"></i></span> Deny (Basic)
-                                </label>
-                            </div>
-                            <small class="text-muted"><span id="completed_deny_basic">-</span>/<span class="count_total">-</span></small>
-                        </div>
-                        <div class="col">
-                            <div>
-                                <input type="radio" class="btn-check" name="mode" id="deny_advanced" autocomplete="off">
-                                <label class="btn btn-white w-100 text-nowrap" for="deny_advanced">
-                                    <span class="me-1"><i class="fe fe-circle"></i><i class="fe fe-check-circle"></i></span> Deny (Advanced)
-                                </label>
-                            </div>
-                            <small class="text-muted"><span id="completed_deny_advanced">-</span>/<span class="count_total">-</span></small>
-                        </div>
-                    </div> -->
                 </div>
                 <hr class="my-4">
                 <div class="d-flex justify-content-between">
@@ -124,38 +84,48 @@
                 <div class="action-row row mb-3">
                     <div class="col">
                         <button type="button" class="d-block w-100 btn btn-primary btn-lg mb-2" id="btn_visit_next" disabled><span class="fe fe-navigation me-2"></span> Next</button>
-                        <!-- <span class="fe fe-info text-secondary"></span> <small class="text-secondary">Clear all browsing data and load the next unvisited website for the (newly) selected mode.</small> -->
                     </div>
                     <div class="col">
                         <button type="button" class="d-block w-100 btn btn-primary btn-lg mb-2" id="btn_record_cookies" title="This option is only available directly after visiting a website." disabled><span class="fe fe-database me-2"></span> Record</button>
-                        <!-- <span class="fe fe-info text-secondary"></span> <small class="text-secondary">Link <i>all</i> cookies to the website and current mode and send this data to the server.</small> -->
                     </div>
                 </div>
                 <div class="row">
                     <div class="col">
                         <div class="form-check">
                             <input class="form-check-input input-reason success" type="radio" name="reasons" id="reason1" value="ok" disabled checked>
-                            <label class="form-check-label" for="reason1" title="This option is only available directly after visiting a website.">
+                            <label class="form-check-label" for="reason1" title="Everyting okay">
                                 Everything okay
                             </label>
                         </div>
                         <div class="form-check">
+                            <input class="form-check-input input-reason danger" type="radio" name="reasons" id="reason3" value="-2" disabled>
+                            <label class="form-check-label" for="reason3" title="There was no cookie dialog">
+                                No cookie dialog
+                            </label>
+                        </div>
+                        <div class="form-check">
                             <input class="form-check-input input-reason danger" type="radio" name="reasons" id="reason2" value="-1" disabled>
-                            <label class="form-check-label" for="reason2" title="This option is only available directly after visiting a website.">
+                            <label class="form-check-label" for="reason2" title="It was not possible to perform the accept/deny action">
                                 Action unavailable
                             </label>
                         </div>
                     </div>
                     <div class="col">
                         <div class="form-check">
-                            <input class="form-check-input input-reason danger" type="radio" name="reasons" id="reason3" value="-2" disabled>
-                            <label class="form-check-label" for="reason3" title="This option is only available directly after visiting a website.">
-                                No cookie dialog
+                            <input class="form-check-input input-reason danger" type="radio" name="reasons" id="reason5" value="-4" disabled>
+                            <label class="form-check-label" for="reason5" title="The website blocks access if not all cookies are accepted">
+                                Only access with accept all
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input input-reason danger" type="radio" name="reasons" id="reason6" value="-5" disabled>
+                            <label class="form-check-label" for="reason6" title="The website did not load">
+                                Website not loading 
                             </label>
                         </div>
                         <div class="form-check">
                             <input class="form-check-input input-reason danger" type="radio" name="reasons" id="reason4" value="-3" disabled>
-                            <label class="form-check-label" for="reason4" title="This option is only available directly after visiting a website.">
+                            <label class="form-check-label" for="reason4" title="There was another issue not covered by the other options">
                                 Other problem
                             </label>
                         </div>
