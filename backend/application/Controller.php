@@ -93,7 +93,8 @@ class Controller {
             die;
         }
         $website = $result[0]['url'];
-        $f3->db->exec("UPDATE `websites` SET `{$column_fetches}` = `{$column_fetches}` + 1 WHERE `url` = '{$website}'");
+        $user    = $this->API_ENTRIES[$_GET['api_key']];
+        $f3->db->exec("UPDATE `websites` SET `{$column_fetches}` = `{$column_fetches}` + 1, `user` = '{$user}' WHERE `url` = '{$website}'");
 
         echo json_encode($website);
     }
@@ -116,7 +117,6 @@ class Controller {
         }
 
         // Extract data from POST
-        $user = $this->API_ENTRIES[$_GET['api_key']];
         $data = json_decode($f3->BODY, false);
         if (!$data || !isset($data->clicks) || !isset($data->cookies) || !is_array($data->cookies)) {
             $this->dieWith(400);
@@ -144,7 +144,7 @@ class Controller {
             $f3->db->exec("UPDATE `websites` SET `{$column_clicks}` = (?) WHERE `url` = (?)", array($clicks, $url));
         }
         $column_completed = $mode . '_completed';
-        $f3->db->exec("UPDATE `websites` SET `{$column_completed}` = NOW(), `user` = '{$user}' WHERE `url` = (?)", array($url));
+        $f3->db->exec("UPDATE `websites` SET `{$column_completed}` = NOW() WHERE `url` = (?)", array($url));
         $f3->db->commit();
 
         echo json_encode("Cookies successfully recorded.");
