@@ -192,9 +192,14 @@ function recordCookiesAndClicks() {
     btnVisitNext.disabled = false;
     
     chrome.storage.local.get('clicks', (data) => {
-
+        let clicks = 0;
         let reason = document.querySelector('input[name="reasons"]:checked').value;
-        let clicks = reason !== 'ok' ? parseInt(reason) : data.clicks;
+
+        if (reason !== 'ok') {
+            clicks = parseInt(reason);
+        } else if (currentMode !== 'initial') {
+            clicks = data.clicks;
+        }
 
         chrome.cookies.getAll({}, (cookies) => {
             cookies = cookies.map(cookie => _.mapKeys(cookie, (v, k) => _.snakeCase(k)));
@@ -216,7 +221,7 @@ function recordCookiesAndClicks() {
                 if (res.ok) {
                     TOAST.fire({
                         icon:  'success',
-                        title: 'Cookies successfully recorded.'
+                        title: 'Cookies, clicks and reason successfully recorded.'
                     });
                     fetchStats();
                 } else {
