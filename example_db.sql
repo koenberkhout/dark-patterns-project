@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jun 02, 2022 at 07:24 PM
+-- Generation Time: Jun 05, 2022 at 11:17 AM
 -- Server version: 10.5.15-MariaDB-cll-lve-log
 -- PHP Version: 7.3.33
 
@@ -30,7 +30,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `cookies` (
   `id` bigint(20) NOT NULL,
   `url` varchar(256) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `mode` enum('initial','accept_all','deny_all') COLLATE utf8mb4_unicode_ci NOT NULL,
+  `mode` varchar(256) COLLATE utf8mb4_unicode_ci NOT NULL,
   `domain` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `name` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `value` text COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -51,7 +51,9 @@ CREATE TABLE `cookies` (
 
 CREATE TABLE `websites` (
   `id` int(11) NOT NULL,
-  `url` varchar(256) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `rank` int(11) NOT NULL COMMENT 'tranco',
+  `url_orig` varchar(256) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Original url',
+  `url` varchar(256) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Final url',
   `user` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `initial_fetches` int(11) NOT NULL DEFAULT 0,
   `initial_completed` datetime DEFAULT NULL,
@@ -65,19 +67,6 @@ CREATE TABLE `websites` (
   `deny_advanced_completed` datetime DEFAULT NULL,
   `deny_advanced_clicks` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `websites`
---
-
-INSERT INTO `websites` (`id`, `url`, `user`, `initial_fetches`, `initial_completed`, `accept_all_fetches`, `accept_all_completed`, `accept_all_clicks`, `deny_basic_fetches`, `deny_basic_completed`, `deny_basic_clicks`, `deny_advanced_fetches`, `deny_advanced_completed`, `deny_advanced_clicks`) VALUES
-(1, 'apple.com', NULL, 0, NULL, 0, NULL, NULL, 0, NULL, NULL, 0, NULL, NULL),
-(2, 'cnn.com', NULL, 0, NULL, 0, NULL, NULL, 0, NULL, NULL, 0, NULL, NULL),
-(3, 'google.com', NULL, 0, NULL, 0, NULL, NULL, 0, NULL, NULL, 0, NULL, NULL),
-(4, 'tesla.com', NULL, 0, NULL, 0, NULL, NULL, 0, NULL, NULL, 0, NULL, NULL),
-(5, 'microsoft.com', NULL, 0, NULL, 0, NULL, NULL, 0, NULL, NULL, 0, NULL, NULL),
-(6, 'omroepbrabant.nl', NULL, 0, NULL, 0, NULL, NULL, 0, NULL, NULL, 0, NULL, NULL),
-(7, 'ou.nl', NULL, 0, NULL, 0, NULL, NULL, 0, NULL, NULL, 0, NULL, NULL);
 
 --
 -- Indexes for dumped tables
@@ -111,7 +100,7 @@ ALTER TABLE `cookies`
 -- AUTO_INCREMENT for table `websites`
 --
 ALTER TABLE `websites`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Constraints for dumped tables
