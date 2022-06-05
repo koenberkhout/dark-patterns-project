@@ -86,15 +86,19 @@ class Controller {
         
         $numkeys   = count($this->API_ENTRIES);
         $key_index = array_search($_GET['api_key'], array_keys($this->API_ENTRIES));
-        $result    = $f3->db->exec("SELECT * FROM `websites` WHERE `{$column_completed}` IS NULL AND `id` % {$numkeys} = {$key_index} ORDER BY `{$column_fetches}` LIMIT 1");
+
+        $f3->db->begin();
+        $result = $f3->db->exec("SELECT * FROM `websites` WHERE `{$column_completed}` IS NULL AND `id` % {$numkeys} = {$key_index} ORDER BY `{$column_fetches}` LIMIT 1");
         
         if (!$result) {
+            $f3->db->commit();
             echo json_encode("");
             die;
         }
         $website = $result[0]['url'];
         $user    = $this->API_ENTRIES[$_GET['api_key']];
         $f3->db->exec("UPDATE `websites` SET `{$column_fetches}` = `{$column_fetches}` + 1, `user` = '{$user}' WHERE `url` = '{$website}'");
+        $f3->db->commit();
 
         echo json_encode($website);
     }
@@ -139,12 +143,9 @@ class Controller {
             $cookie_mapper->save();
             $cookie_mapper->reset();
         }
-        if ($mode !== 'initial') {
-            $column_clicks = $mode . '_clicks';
-            $f3->db->exec("UPDATE `websites` SET `{$column_clicks}` = (?) WHERE `url` = (?)", array($clicks, $url));
-        }
         $column_completed = $mode . '_completed';
-        $f3->db->exec("UPDATE `websites` SET `{$column_completed}` = NOW() WHERE `url` = (?)", array($url));
+        $column_clicks    = $mode . '_clicks';
+        $f3->db->exec("UPDATE `websites` SET `{$column_completed}` = NOW(), `{$column_clicks}` = (?) WHERE `url` = (?)", array($clicks, $url));
         $f3->db->commit();
 
         echo json_encode("Cookies successfully recorded.");
