@@ -117,6 +117,7 @@ function updateStats(stats) {
 
 function handleModeChange(e) {
     btnRecordCookies.disabled = true;
+    btnVisitNext.disabled = false;
     futureMode = e.target.id;
     chrome.storage.local.set({ future_mode: futureMode });
 }

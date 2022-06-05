@@ -18,7 +18,10 @@ function afterShowNotification() {
     chrome.storage.local.remove('notification');
 }
 
-// Add click listener
+// Unhide html content on `document_idle`
+document.documentElement.style.display = "initial";
+
+// Add click listener to root document
 document.addEventListener('click', e => {
     chrome.runtime.sendMessage('clicked');
-}, true);
+});

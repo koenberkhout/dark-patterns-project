@@ -12,7 +12,15 @@
   "content_scripts": [
     {
       "run_at" : "document_start",
-      "js": ["js/before.js"],
+      "js": ["js/document_start.js"],
+      "matches": [
+        "https://*/*",
+        "http://*/*"
+      ]
+    },
+    {
+      "run_at" : "document_idle",
+      "js": ["js/document_idle.js"],
       "matches": [
         "https://*/*",
         "http://*/*"
