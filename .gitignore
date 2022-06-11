@@ -1,5 +1,6 @@
 tools/domainchecker/*
 !tools/domainchecker/index.js
+!tools/domainchecker/sql-generator.js
 !tools/domainchecker/ipdata.sh
 !tools/domainchecker/geoip.sh
 !tools/domainchecker/w3m.sh
@@ -8,6 +9,7 @@ tools/domainchecker/*
 !tools/domainchecker/script.old.sh
 !tools/domainchecker/dnsproxycode.old.js
 !tools/domainchecker/screenshot.png
+!tools/domainchecker/buckets/
 *.code-workspace
 vendor/
 conf.js

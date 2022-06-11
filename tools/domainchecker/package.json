@@ -2,6 +2,7 @@
   "dependencies": {
     "franc": "^5.0.0",
     "lodash": "^4.17.21",
+    "psl": "^1.8.0",
     "shelljs": "^0.8.5",
     "sprintf-js": "^1.1.2"
   }
