@@ -1,3 +1,13 @@
+tools/domainchecker/*
+!tools/domainchecker/index.js
+!tools/domainchecker/ipdata.sh
+!tools/domainchecker/geoip.sh
+!tools/domainchecker/w3m.sh
+!tools/domainchecker/package.json
+!tools/domainchecker/package-lock.json
+!tools/domainchecker/script.old.sh
+!tools/domainchecker/dnsproxycode.old.js
+!tools/domainchecker/screenshot.png
 *.code-workspace
 vendor/
 conf.js
