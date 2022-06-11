@@ -18,3 +18,9 @@ When creating buckets, domains are progressively filtered using various ([OSINT]
 - **Ipdata:** Finally, the IP address returned by the first public DNS resolver is checked using ipdata.co's free API. If it is a known threat, the domain is discarded.
 
 *This may seem restrictive, but after filtering out all the garbage there are more than enough domains left to use.*
+
+## Screenshot
+This example uses the Tranco top 1 million websites and fills each bucket with limit=1 valid domain.
+
+
+![screenshot](https://github.com/koenberkhout/Dark-Patterns-Cookie-Helper/blob/main/tools/domainchecker/screenshot.png?raw=true)
