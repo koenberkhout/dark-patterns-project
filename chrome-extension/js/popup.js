@@ -108,7 +108,8 @@ function fetchStatsAndReasons() {
 
 function updateReasons(reasons) {
     reasons.forEach(reason => {
-        selectReasons.add(new Option(reason.description, reason.id, reason.is_default, reason.is_default));
+        console.log(reason);
+        selectReasons.add(new Option(reason.description, reason.reason_id, reason.is_default, reason.is_default));
     });
 }
 
@@ -198,20 +199,14 @@ function recordCookiesAndClicks() {
     btnVisitNext.disabled = false;
     
     chrome.storage.local.get('clicks', (data) => {
-        let clicks = 0;
-        let reason = document.querySelector('input[name="reasons"]:checked').value;
-
-        if (reason !== 'ok') {
-            clicks = parseInt(reason);
-        } else if (currentMode !== 'initial') {
-            clicks = data.clicks;
-        }
+        const clicks = data.clicks;
+        const reason = selectReasons.value;
 
         chrome.cookies.getAll({}, (cookies) => {
             cookies = cookies.map(cookie => _.mapKeys(cookie, (v, k) => _.snakeCase(k)));
             cookies.forEach((cookie) => {
                 cookie['expiration_date'] = cookie['expiration_date'] ? new Date(cookie['expiration_date']*1000).toISOString() : null;
-                cookie['url'] = website;
+                cookie['website_url'] = website;
                 cookie['mode'] = currentMode;
                 delete cookie['store_id'];
             });
@@ -220,6 +215,7 @@ function recordCookiesAndClicks() {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     clicks: clicks,
+                    reason: reason,
                     cookies: cookies
                 })
             })

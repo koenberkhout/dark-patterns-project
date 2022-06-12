@@ -28,7 +28,7 @@ $f3->set('DEBUG', 3);
 
 // Endpoints
 $f3->route('GET  /',                          'Controller->root');
-$f3->route('GET  /stats',                     'Controller->stats');
+$f3->route('GET  /stats-reasons',             'Controller->statsAndReasons');
 $f3->route('GET  /validate-key',              'Controller->validateKey');
 $f3->route('GET  /next-website/@mode',        'Controller->nextWebsite');
 $f3->route('POST /report-cookies/@mode/@url', 'Controller->reportCookiesAndClicks');

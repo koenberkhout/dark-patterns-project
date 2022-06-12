@@ -59,19 +59,18 @@ class Controller {
     }
 
 
-    // 'GET /stats'
-    function stats($f3) {
-        $result = $f3->db->exec("SELECT * FROM `websites`");
+    // 'GET /stats-reasons'
+    function statsAndReasons($f3) {
+        $result = $f3->db->exec("SELECT * FROM `website` LEFT OUTER JOIN `recording` ON `website`.url = `recording`.website_url");
         if (!$result || !is_array($result)) {
             echo json_encode("");
             die;
         }
-        $stats = array('count_total' => count($result));
+        $stats = array('count_total' => count(array_unique(array_column($result, 'website_id'))));
         foreach ($this->MODES as $mode) {
-            $stats['completed_' . $mode] = count(array_filter($result, fn ($item) => $item[$mode . '_completed'] !== null));
+            $stats['completed_' . $mode] = count(array_filter($result, fn ($item) => $item['mode'] === $mode));
         }
-        // Add reasons
-        $reasons = $f3->db->exec("SELECT * FROM `reasons`");
+        $reasons = $f3->db->exec("SELECT * FROM `reason`");
         
         echo json_encode(array("stats" => $stats, "reasons" => $reasons));
     }
@@ -83,26 +82,39 @@ class Controller {
         if (!in_array($mode, $this->MODES)) {
             $this->dieWith(400);
         }
-        $column_completed = $mode . '_completed';
-        $column_fetches   = $mode . '_fetches';
-        
+        // Get API key index for current user
+        $api_key   = $_GET['api_key'];
         $numkeys   = count($this->API_ENTRIES);
-        $key_index = array_search($_GET['api_key'], array_keys($this->API_ENTRIES));
-
-        $f3->db->begin();
-        $result = $f3->db->exec("SELECT * FROM `websites` WHERE `{$column_completed}` IS NULL AND `id` % {$numkeys} = {$key_index} ORDER BY `{$column_fetches}` LIMIT 1");
+        $key_index = array_search($api_key, array_keys($this->API_ENTRIES));
+        $user      = $this->API_ENTRIES[$api_key];
         
+        // Determine which url to visit next
+        $f3->db->begin();
+        $column_fetches = $mode . '_fetches';
+        $result = $f3->db->exec("SELECT * FROM `website` LEFT OUTER JOIN `recording` ON `website`.url = `recording`.website_url WHERE `website_id` % {$numkeys} = {$key_index} ORDER BY `{$column_fetches}`");
         if (!$result) {
             $f3->db->commit();
             echo json_encode("");
             die;
         }
-        $website = $result[0]['url'];
-        $user    = $this->API_ENTRIES[$_GET['api_key']];
-        $f3->db->exec("UPDATE `websites` SET `{$column_fetches}` = `{$column_fetches}` + 1, `user` = '{$user}' WHERE `url` = '{$website}'");
+        $urls_current_user = array_unique(array_column($result, 'url'));
+        $next_url = null;
+        foreach ($urls_current_user as $url) {
+            if (count(array_filter($result, fn($resultRow) => $resultRow['url'] === $url && $resultRow['mode'] === $mode)) === 0) {
+                $next_url = $url;
+                break;
+            }
+        }
+        if (!$next_url) {
+            $f3->db->commit();
+            echo json_encode("");
+            die;
+        }
+        // Assign user and update fetchcount
+        $f3->db->exec("UPDATE `website` SET `{$column_fetches}` = `{$column_fetches}` + 1, `user` = '{$user}' WHERE `url` = '{$next_url}'");
         $f3->db->commit();
 
-        echo json_encode($website);
+        echo json_encode($next_url);
     }
 
 
@@ -117,37 +129,38 @@ class Controller {
 
         // Extract and verify url with a prepared statement (safe from SQL injection)
         $url = $args['url'];
-        $result = $f3->db->exec("SELECT * FROM `websites` WHERE `url` = (?)", array($url));
+        $result = $f3->db->exec("SELECT * FROM `website` WHERE `url` = (?)", array($url));
         if (!$result || count($result) !== 1) {
             $this->dieWith(400);
         }
 
         // Extract data from POST
         $data = json_decode($f3->BODY, false);
-        if (!$data || !isset($data->clicks) || !isset($data->cookies) || !is_array($data->cookies)) {
+        if (!$data || !isset($data->clicks) || !isset($data->cookies) || !isset($data->reason) || !is_array($data->cookies)) {
             $this->dieWith(400);
         }
         $clicks  = $data->clicks;
+        $reason  = $data->reason;
         $cookies = $data->cookies;
 
         // Ensure that query params and cookie fields match
-        $cookiesFiltered = array_filter($cookies, fn ($cookie) => $cookie->url === $url && $cookie->mode === $mode);
+        $cookiesFiltered = array_filter($cookies, fn ($cookie) => $cookie->website_url === $url && $cookie->mode === $mode);
         if (count($cookies) != count($cookiesFiltered)) {
             $this->dieWith(400);
         }
 
         // Insert cookies into database (the copyFrom function is safe from SQL injection)
         $f3->db->begin();
-        $f3->db->exec("DELETE FROM `cookies` WHERE `url` = (?) AND `mode` = '{$mode}'", array($url));
-        $cookie_mapper = new DB\SQL\Mapper($f3->db, 'cookies');
+        $f3->db->exec("DELETE FROM `recording` WHERE `website_url` = (?) AND `mode` = '{$mode}'", array($url));
+        $f3->db->exec("INSERT INTO `recording` (`website_url`, `reason_id`, `mode`, `clicks`) VALUES (?,?,?,?)", array($url, $reason, $mode, $clicks));
+        $recording_id = $f3->db->lastInsertId();
+        $cookie_mapper = new DB\SQL\Mapper($f3->db, 'cookie');
         foreach ($cookies as $cookie) {
+            $cookie->recording_id = $recording_id;
             $cookie_mapper->copyFrom($cookie);
             $cookie_mapper->save();
             $cookie_mapper->reset();
         }
-        $column_completed = $mode . '_completed';
-        $column_clicks    = $mode . '_clicks';
-        $f3->db->exec("UPDATE `websites` SET `{$column_completed}` = NOW(), `{$column_clicks}` = (?) WHERE `url` = (?)", array($clicks, $url));
         $f3->db->commit();
 
         echo json_encode("Cookies successfully recorded.");
