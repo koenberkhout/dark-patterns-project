@@ -34,12 +34,17 @@ allEntries = _.sortBy(allEntries, [function(entry) {
 allEntries = _.uniqBy(allEntries, 'rank').slice(0, 800);
 
 sqlLines.push(
-    'TRUNCATE `cookies`;',
-    'TRUNCATE `websites`;',
-    'ALTER TABLE `websites` AUTO_INCREMENT = 1;'
+    'SET FOREIGN_KEY_CHECKS = 0;',
+    'TRUNCATE `cookie`;',
+    'TRUNCATE `recording`;',
+    'TRUNCATE `website`;',
+    'ALTER TABLE `cookie` AUTO_INCREMENT = 1;',
+    'ALTER TABLE `recording` AUTO_INCREMENT = 1;',
+    'ALTER TABLE `website` AUTO_INCREMENT = 1;',
+    'SET FOREIGN_KEY_CHECKS = 1;'
 );
 allEntries.forEach(entry => {
-    const sqlLine = `INSERT INTO \`websites\` (\`rank\`, \`url_orig\`, \`url\`) VALUES ('${entry.rank}', '${entry.url_orig}', '${entry.url}');`;
+    const sqlLine = `INSERT INTO \`website\` (\`rank\`, \`url_orig\`, \`url\`) VALUES ('${entry.rank}', '${entry.url_orig}', '${entry.url}');`;
     sqlLines.push(sqlLine);
 });
 fs.writeFileSync(`./sql-inserts.sql`, sqlLines.join('\n'));
