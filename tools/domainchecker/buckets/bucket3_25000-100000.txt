@@ -96,7 +96,7 @@
 95692,wholeelise.com
 96940,www.iamshaman.com
 97146,www.essent.nl
-97146,www.essent.nl
+35786,dds.nl
 97291,travaxo.nl
 97605,www.indiemade.com
 98367,answerbase.com
@@ -198,3 +198,8 @@
 2886,vodafone.com
 5940,invisionapp.com
 27649,tigertech.net
+10937,celebritynetworth.com
+74559,bookwidgets.com
+21055,visitcalifornia.com
+60204,freewebnovel.com
+22393,mercy.net

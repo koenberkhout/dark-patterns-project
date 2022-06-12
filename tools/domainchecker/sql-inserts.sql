@@ -242,7 +242,6 @@ INSERT INTO `websites` (`rank`, `url_orig`, `url`) VALUES ('6175', 'xoom.com', '
 INSERT INTO `websites` (`rank`, `url_orig`, `url`) VALUES ('6178', 'zynga.com', 'www.zynga.com');
 INSERT INTO `websites` (`rank`, `url_orig`, `url`) VALUES ('6213', 'nrc.nl', 'www.nrc.nl');
 INSERT INTO `websites` (`rank`, `url_orig`, `url`) VALUES ('6226', 'jqueryui.com', 'jqueryui.com');
-INSERT INTO `websites` (`rank`, `url_orig`, `url`) VALUES ('6226', 'marktplaats.nl', 'marktplaats.nl');
 INSERT INTO `websites` (`rank`, `url_orig`, `url`) VALUES ('6298', 'scienceblogs.com', 'scienceblogs.com');
 INSERT INTO `websites` (`rank`, `url_orig`, `url`) VALUES ('6300', 'wenthemes.com', 'wenthemes.com');
 INSERT INTO `websites` (`rank`, `url_orig`, `url`) VALUES ('6307', 'olark.com', 'olark.com');
@@ -323,7 +322,6 @@ INSERT INTO `websites` (`rank`, `url_orig`, `url`) VALUES ('9138', 'lipsum.com',
 INSERT INTO `websites` (`rank`, `url_orig`, `url`) VALUES ('9202', 'alphacoders.com', 'alphacoders.com');
 INSERT INTO `websites` (`rank`, `url_orig`, `url`) VALUES ('9212', 'yarabook.com', 'yarabook.com');
 INSERT INTO `websites` (`rank`, `url_orig`, `url`) VALUES ('9232', 'xmission.com', 'xmission.com');
-INSERT INTO `websites` (`rank`, `url_orig`, `url`) VALUES ('9232', 'nrc.nl', 'nrc.nl');
 INSERT INTO `websites` (`rank`, `url_orig`, `url`) VALUES ('9244', 'cloud.com', 'www.cloud.com');
 INSERT INTO `websites` (`rank`, `url_orig`, `url`) VALUES ('9275', 'buysildenshop.com', 'buysildenshop.com');
 INSERT INTO `websites` (`rank`, `url_orig`, `url`) VALUES ('9339', 'bakespace.com', 'www.bakespace.com');
@@ -356,6 +354,7 @@ INSERT INTO `websites` (`rank`, `url_orig`, `url`) VALUES ('10450', 'accaglobal.
 INSERT INTO `websites` (`rank`, `url_orig`, `url`) VALUES ('10465', 'keywordseverywhere.com', 'keywordseverywhere.com');
 INSERT INTO `websites` (`rank`, `url_orig`, `url`) VALUES ('10634', 'funda.nl', 'funda.nl');
 INSERT INTO `websites` (`rank`, `url_orig`, `url`) VALUES ('10635', 'belastingdienst.nl', 'www.belastingdienst.nl');
+INSERT INTO `websites` (`rank`, `url_orig`, `url`) VALUES ('10937', 'celebritynetworth.com', 'celebritynetworth.com');
 INSERT INTO `websites` (`rank`, `url_orig`, `url`) VALUES ('11262', 'rabobank.nl', 'rabobank.nl');
 INSERT INTO `websites` (`rank`, `url_orig`, `url`) VALUES ('11397', 'thelist.com', 'www.thelist.com');
 INSERT INTO `websites` (`rank`, `url_orig`, `url`) VALUES ('11597', 'vgtrk.com', 'vgtrk.com');
@@ -407,12 +406,14 @@ INSERT INTO `websites` (`rank`, `url_orig`, `url`) VALUES ('19755', 'knmi.nl', '
 INSERT INTO `websites` (`rank`, `url_orig`, `url`) VALUES ('20312', '123helpme.com', '123helpme.com');
 INSERT INTO `websites` (`rank`, `url_orig`, `url`) VALUES ('20815', 'reduceimages.com', 'www.reduceimages.com');
 INSERT INTO `websites` (`rank`, `url_orig`, `url`) VALUES ('20827', 'eurid.eu', 'eurid.eu');
+INSERT INTO `websites` (`rank`, `url_orig`, `url`) VALUES ('21055', 'visitcalifornia.com', 'visitcalifornia.com');
 INSERT INTO `websites` (`rank`, `url_orig`, `url`) VALUES ('21242', 'broadcastify.com', 'www.broadcastify.com');
 INSERT INTO `websites` (`rank`, `url_orig`, `url`) VALUES ('21359', 'xml.com', 'www.xml.com');
 INSERT INTO `websites` (`rank`, `url_orig`, `url`) VALUES ('21575', 'brooklynmuseum.org', 'brooklynmuseum.org');
 INSERT INTO `websites` (`rank`, `url_orig`, `url`) VALUES ('22039', 'fxempire.com', 'fxempire.com');
 INSERT INTO `websites` (`rank`, `url_orig`, `url`) VALUES ('22059', 'anaplan.com', 'www.anaplan.com');
 INSERT INTO `websites` (`rank`, `url_orig`, `url`) VALUES ('22166', 'aceshowbiz.com', 'aceshowbiz.com');
+INSERT INTO `websites` (`rank`, `url_orig`, `url`) VALUES ('22393', 'mercy.net', 'mercy.net');
 INSERT INTO `websites` (`rank`, `url_orig`, `url`) VALUES ('22802', 'greetingsisland.com', 'www.greetingsisland.com');
 INSERT INTO `websites` (`rank`, `url_orig`, `url`) VALUES ('22875', 'voidstar.com', 'voidstar.com');
 INSERT INTO `websites` (`rank`, `url_orig`, `url`) VALUES ('24189', 'canto.com', 'www.canto.com');
@@ -451,6 +452,7 @@ INSERT INTO `websites` (`rank`, `url_orig`, `url`) VALUES ('34094', 'freeslotsno
 INSERT INTO `websites` (`rank`, `url_orig`, `url`) VALUES ('34121', 'econstor.eu', 'econstor.eu');
 INSERT INTO `websites` (`rank`, `url_orig`, `url`) VALUES ('34825', 'webconfs.com', 'www.webconfs.com');
 INSERT INTO `websites` (`rank`, `url_orig`, `url`) VALUES ('35363', 'hydroxychloroquinefst.com', 'hydroxychloroquinefst.com');
+INSERT INTO `websites` (`rank`, `url_orig`, `url`) VALUES ('35786', 'dds.nl', 'dds.nl');
 INSERT INTO `websites` (`rank`, `url_orig`, `url`) VALUES ('36198', 'nlnetlabs.nl', 'nlnetlabs.nl');
 INSERT INTO `websites` (`rank`, `url_orig`, `url`) VALUES ('36684', 'monbiot.com', 'www.monbiot.com');
 INSERT INTO `websites` (`rank`, `url_orig`, `url`) VALUES ('36817', 'devx.com', 'www.devx.com');
@@ -521,6 +523,7 @@ INSERT INTO `websites` (`rank`, `url_orig`, `url`) VALUES ('58268', 'myip.com', 
 INSERT INTO `websites` (`rank`, `url_orig`, `url`) VALUES ('58778', 'ivermpill.com', 'ivermpill.com');
 INSERT INTO `websites` (`rank`, `url_orig`, `url`) VALUES ('59396', 'keepsolid.com', 'www.keepsolid.com');
 INSERT INTO `websites` (`rank`, `url_orig`, `url`) VALUES ('59667', 'oodare.com', 'oodare.com');
+INSERT INTO `websites` (`rank`, `url_orig`, `url`) VALUES ('60204', 'freewebnovel.com', 'freewebnovel.com');
 INSERT INTO `websites` (`rank`, `url_orig`, `url`) VALUES ('61203', 'coincola.com', 'www.coincola.com');
 INSERT INTO `websites` (`rank`, `url_orig`, `url`) VALUES ('61278', 'myenglishteacher.eu', 'myenglishteacher.eu');
 INSERT INTO `websites` (`rank`, `url_orig`, `url`) VALUES ('61316', 'ivermetimg.com', 'ivermetimg.com');
@@ -553,7 +556,6 @@ INSERT INTO `websites` (`rank`, `url_orig`, `url`) VALUES ('69397', 'sampleforms
 INSERT INTO `websites` (`rank`, `url_orig`, `url`) VALUES ('69543', 'moviemeter.nl', 'moviemeter.nl');
 INSERT INTO `websites` (`rank`, `url_orig`, `url`) VALUES ('69607', 'gimmedelicious.com', 'gimmedelicious.com');
 INSERT INTO `websites` (`rank`, `url_orig`, `url`) VALUES ('69625', 'roughtype.com', 'www.roughtype.com');
-INSERT INTO `websites` (`rank`, `url_orig`, `url`) VALUES ('69625', 'ceps.eu', 'ceps.eu');
 INSERT INTO `websites` (`rank`, `url_orig`, `url`) VALUES ('70057', 'fritzing.org', 'fritzing.org');
 INSERT INTO `websites` (`rank`, `url_orig`, `url`) VALUES ('71031', 'parkme.com', 'www.parkme.com');
 INSERT INTO `websites` (`rank`, `url_orig`, `url`) VALUES ('71294', 'issgovernance.com', 'www.issgovernance.com');
@@ -567,6 +569,7 @@ INSERT INTO `websites` (`rank`, `url_orig`, `url`) VALUES ('74090', 'webwinkelke
 INSERT INTO `websites` (`rank`, `url_orig`, `url`) VALUES ('74159', 'utrecht.nl', 'utrecht.nl');
 INSERT INTO `websites` (`rank`, `url_orig`, `url`) VALUES ('74312', 'shemmassianconsulting.com', 'shemmassianconsulting.com');
 INSERT INTO `websites` (`rank`, `url_orig`, `url`) VALUES ('74553', 'noyb.eu', 'noyb.eu');
+INSERT INTO `websites` (`rank`, `url_orig`, `url`) VALUES ('74559', 'bookwidgets.com', 'bookwidgets.com');
 INSERT INTO `websites` (`rank`, `url_orig`, `url`) VALUES ('74748', 'nuclino.com', 'www.nuclino.com');
 INSERT INTO `websites` (`rank`, `url_orig`, `url`) VALUES ('75746', 'toornament.com', 'www.toornament.com');
 INSERT INTO `websites` (`rank`, `url_orig`, `url`) VALUES ('76541', 'alternate.nl', 'www.alternate.nl');
@@ -599,7 +602,6 @@ INSERT INTO `websites` (`rank`, `url_orig`, `url`) VALUES ('94357', 'janestreet.
 INSERT INTO `websites` (`rank`, `url_orig`, `url`) VALUES ('95692', 'wholeelise.com', 'wholeelise.com');
 INSERT INTO `websites` (`rank`, `url_orig`, `url`) VALUES ('96940', 'iamshaman.com', 'www.iamshaman.com');
 INSERT INTO `websites` (`rank`, `url_orig`, `url`) VALUES ('97146', 'essent.nl', 'www.essent.nl');
-INSERT INTO `websites` (`rank`, `url_orig`, `url`) VALUES ('97146', 'essent.nl', 'www.essent.nl');
 INSERT INTO `websites` (`rank`, `url_orig`, `url`) VALUES ('97291', 'travaxo.nl', 'travaxo.nl');
 INSERT INTO `websites` (`rank`, `url_orig`, `url`) VALUES ('97605', 'indiemade.com', 'www.indiemade.com');
 INSERT INTO `websites` (`rank`, `url_orig`, `url`) VALUES ('98367', 'answerbase.com', 'answerbase.com');
@@ -619,7 +621,6 @@ INSERT INTO `websites` (`rank`, `url_orig`, `url`) VALUES ('110229', 'devcloudso
 INSERT INTO `websites` (`rank`, `url_orig`, `url`) VALUES ('112666', 'conversationstartersworld.com', 'conversationstartersworld.com');
 INSERT INTO `websites` (`rank`, `url_orig`, `url`) VALUES ('112922', 'anonhq.com', 'anonhq.com');
 INSERT INTO `websites` (`rank`, `url_orig`, `url`) VALUES ('113135', 'jobandtalent.com', 'jobandtalent.com');
-INSERT INTO `websites` (`rank`, `url_orig`, `url`) VALUES ('113647', 'harborcompliance.com', 'www.harborcompliance.com');
 INSERT INTO `websites` (`rank`, `url_orig`, `url`) VALUES ('113647', 'harborcompliance.com', 'www.harborcompliance.com');
 INSERT INTO `websites` (`rank`, `url_orig`, `url`) VALUES ('114570', 'siteupp.com', 'www.siteupp.com');
 INSERT INTO `websites` (`rank`, `url_orig`, `url`) VALUES ('115705', 'scitechnol.com', 'www.scitechnol.com');
@@ -800,4 +801,3 @@ INSERT INTO `websites` (`rank`, `url_orig`, `url`) VALUES ('904425', 'chateaueza
 INSERT INTO `websites` (`rank`, `url_orig`, `url`) VALUES ('960175', 'peterdafner.com', 'peterdafner.com');
 INSERT INTO `websites` (`rank`, `url_orig`, `url`) VALUES ('968008', 'culperprecision.com', 'culperprecision.com');
 INSERT INTO `websites` (`rank`, `url_orig`, `url`) VALUES ('982070', 'oakknollwinery.com', 'oakknollwinery.com');
-INSERT INTO `websites` (`rank`, `url_orig`, `url`) VALUES ('986585', 'maklead.com', 'maklead.com');

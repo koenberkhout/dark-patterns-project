@@ -9,6 +9,7 @@ tools/domainchecker/*
 !tools/domainchecker/script.old.sh
 !tools/domainchecker/dnsproxycode.old.js
 !tools/domainchecker/screenshot.png
+!tools/domainchecker/sql-inserts.sql
 !tools/domainchecker/buckets/
 *.code-workspace
 vendor/

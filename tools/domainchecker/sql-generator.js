@@ -13,6 +13,13 @@ for (const bucketFilePath of bucketFilePaths) {
         .toString()
         .replace(/;/g, ',')
         .split("\n")
+        .filter(entry => {
+            const splitted = entry.trim().split(',');
+            if (splitted.length !== 2 || !/^\d+$/.test(splitted[0])) {
+                return false;
+            }
+            return true;
+        })
         .map(entry => {
             const [rank, hostname] = entry.trim().split(',');
             const domain = psl.parse(hostname).domain;
@@ -24,6 +31,8 @@ allEntries = _.sortBy(allEntries, [function(entry) {
     return entry.rank;
 }]);
 
+allEntries = _.uniqBy(allEntries, 'rank').slice(0, 800);
+
 sqlLines.push(
     'TRUNCATE `cookies`;',
     'TRUNCATE `websites`;',
@@ -33,7 +42,7 @@ allEntries.forEach(entry => {
     const sqlLine = `INSERT INTO \`websites\` (\`rank\`, \`url_orig\`, \`url\`) VALUES ('${entry.rank}', '${entry.url_orig}', '${entry.url}');`;
     sqlLines.push(sqlLine);
 });
-fs.writeFileSync(`./buckets/sql-inserts.sql`, sqlLines.join('\n'));
+fs.writeFileSync(`./sql-inserts.sql`, sqlLines.join('\n'));
 
 
 
