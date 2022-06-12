@@ -12,7 +12,7 @@ const MODE_DICT = {
     deny_advanced: 'Deny (Advanced)'
 };
 
-const URL_STATS          = API_URL + '/stats';
+const URL_STATS_REASONS  = API_URL + '/stats-reasons';
 const URL_NEXT_WEBSITE   = API_URL + '/next-website/@mode';
 const URL_REPORT_COOKIES = API_URL + '/report-cookies/@mode/@url';
 
@@ -26,7 +26,7 @@ const btnTest               = document.getElementById("btn_test");
 const txtCurrentMode        = document.getElementById("current_mode");
 const txtUser               = document.getElementById("user");
 const countTotals           = document.getElementsByClassName("count_total");
-const inputReasons          = document.getElementsByClassName("input-reason");
+const selectReasons         = document.getElementById("reasons");
 const completedInitial      = document.getElementById("completed_initial");
 const completedAcceptAll    = document.getElementById("completed_accept_all");
 const completedDenyBasic    = document.getElementById("completed_deny_basic");
@@ -72,7 +72,7 @@ document.querySelectorAll("input[name='mode']").forEach((option) => {
         }
         if (data.api_key) {
             apiKey = data.api_key;
-            fetchStats();
+            fetchStatsAndReasons();
         }
         if (data.user) {
             txtUser.textContent = data.user;
@@ -80,9 +80,7 @@ document.querySelectorAll("input[name='mode']").forEach((option) => {
         if (data.btn_record_enabled) {
             btnRecordCookies.title = "";
             btnRecordCookies.disabled = false;
-            Array.from(inputReasons).forEach((elem) => {
-                elem.disabled = false;
-            });
+            selectReasons.disabled = false;
             chrome.storage.local.set({ btn_record_enabled: false });
         } else {
             btnVisitNext.disabled = false;
@@ -90,8 +88,8 @@ document.querySelectorAll("input[name='mode']").forEach((option) => {
     });
 })();
 
-function fetchStats() {
-    fetch(prepareUrl(URL_STATS))
+function fetchStatsAndReasons() {
+    fetch(prepareUrl(URL_STATS_REASONS))
     .then(res => {
         if (!res.ok) {
             TOAST.fire({
@@ -100,8 +98,17 @@ function fetchStats() {
             });
             console.log(res);
         } else {
-            res.json().then(stats => updateStats(stats));
+            res.json().then(json => {
+                updateStats(json.stats);
+                updateReasons(json.reasons);
+            });
         }
+    });
+}
+
+function updateReasons(reasons) {
+    reasons.forEach(reason => {
+        selectReasons.add(new Option(reason.description, reason.id, reason.is_default, reason.is_default));
     });
 }
 
@@ -187,9 +194,7 @@ function visitNextWebsite() {
 
 function recordCookiesAndClicks() {
     btnRecordCookies.disabled = true;
-    Array.from(inputReasons).forEach((elem) => {
-        elem.disabled = true;
-    });
+    selectReasons.disabled = true;
     btnVisitNext.disabled = false;
     
     chrome.storage.local.get('clicks', (data) => {
@@ -224,7 +229,7 @@ function recordCookiesAndClicks() {
                         icon:  'success',
                         title: 'Cookies, clicks and reason successfully recorded.'
                     });
-                    fetchStats();
+                    fetchStatsAndReasons();
                 } else {
                     TOAST.fire({
                         icon:  'error',

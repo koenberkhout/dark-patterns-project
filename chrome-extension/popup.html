@@ -17,14 +17,41 @@
             <!-- <button type="button" class="btn btn-primary btn-sm" id="btn_test">TEST</button><hr> -->
             <div class="card-text">
                 <div class="d-flex justify-content-between">
+                    <h2 class="h3 mb-3">Website</h2>
+                    <div>
+                        <span class="badge bg-light align-top"><i class="fe fe-info me-1"></i> Current mode: <span class="fw-bold" id="current_mode">None</span></span>
+                    </div>
+                </div>
+                <div class="d-flex mb-3">
+                    <div class="input-group input-group-merge input-group-reverse">
+                        <input class="form-control text-dark" placeholder="Press 'Next' to start" type="text" id="input_website" disabled>
+                        <div class="input-group-text" id="inputGroupReverse">
+                            <span class="fe fe-globe text-secondary"></span>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-white btn-sm ms-2" id="btn_clear_revisit" title="Clear all browsing data and re-visit the website with the (newly) selected mode." disabled><span class="fe fe-refresh-cw px-1"></span></button>
+                </div>
+                <div class="action-row row mb-3">
+                    <div class="col">
+                        <button type="button" class="d-block w-100 btn btn-primary btn-lg mb-2" id="btn_visit_next" disabled><span class="fe fe-navigation me-2"></span> Next</button>
+                    </div>
+                    <div class="col">
+                        <button type="button" class="d-block w-100 btn btn-primary btn-lg mb-2" id="btn_record_cookies" title="This option is only available directly after visiting a website." disabled><span class="fe fe-database me-2"></span> Record</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <select id="reasons" class="form-select mb-3" disabled></select>
+                    </div>
+                </div>
+                <hr class="my-4">
+                <div class="d-flex justify-content-between">
                     <h2 class="h3 mb-3">New mode</h2>
                     <div>
                         <span class="me-2 text-colorful small align-top">Hi <span id="user"></span>!</span>
                         <img src="/img/user.png" class="d-inline-block position-relative top-up-6" width="24" height="24">
                     </div>
                 </div>
-                <!-- <h2 class="h3 mb-3">New mode</h2> -->
-                <!-- <div class="small text-muted mb-3">For future requests</div> -->
                 <div class="btn-group-toggle">
                     <div class="row text-center mb-3">
                         <div class="col d-flex flex-column">
@@ -62,72 +89,6 @@
                                     <small class="text-muted float-end top-down"><span id="completed_deny_advanced">-</span>/<span class="count_total">-</span></small>
                                 </label>
                             </div>
-                        </div>
-                    </div>
-                </div>
-                <hr class="my-4">
-                <div class="d-flex justify-content-between">
-                    <h2 class="h3 mb-3">Website</h2>
-                    <div>
-                        <span class="badge bg-light align-top"><i class="fe fe-info me-1"></i> Current mode: <span class="fw-bold" id="current_mode">None</span></span>
-                    </div>
-                </div>
-                <div class="d-flex mb-3">
-                    <div class="input-group input-group-merge input-group-reverse">
-                        <input class="form-control text-dark" placeholder="Press 'Next' to start" type="text" id="input_website" disabled>
-                        <div class="input-group-text" id="inputGroupReverse">
-                            <span class="fe fe-globe text-secondary"></span>
-                        </div>
-                    </div>
-                    <button type="button" class="btn btn-white btn-sm ms-2" id="btn_clear_revisit" title="Clear all browsing data and re-visit the website with the (newly) selected mode." disabled><span class="fe fe-refresh-cw px-1"></span></button>
-                </div>
-                <div class="action-row row mb-3">
-                    <div class="col">
-                        <button type="button" class="d-block w-100 btn btn-primary btn-lg mb-2" id="btn_visit_next" disabled><span class="fe fe-navigation me-2"></span> Next</button>
-                    </div>
-                    <div class="col">
-                        <button type="button" class="d-block w-100 btn btn-primary btn-lg mb-2" id="btn_record_cookies" title="This option is only available directly after visiting a website." disabled><span class="fe fe-database me-2"></span> Record</button>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <div class="form-check">
-                            <input class="form-check-input input-reason success" type="radio" name="reasons" id="reason1" value="ok" disabled checked>
-                            <label class="form-check-label" for="reason1" title="Everyting okay">
-                                Everything okay
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input input-reason danger" type="radio" name="reasons" id="reason3" value="-2" disabled>
-                            <label class="form-check-label" for="reason3" title="There was no cookie dialog">
-                                No cookie dialog
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input input-reason danger" type="radio" name="reasons" id="reason2" value="-1" disabled>
-                            <label class="form-check-label" for="reason2" title="It was not possible to perform the accept/deny action">
-                                Action unavailable
-                            </label>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="form-check">
-                            <input class="form-check-input input-reason danger" type="radio" name="reasons" id="reason5" value="-4" disabled>
-                            <label class="form-check-label" for="reason5" title="The website blocks access if not all cookies are accepted">
-                                Only access with accept all
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input input-reason danger" type="radio" name="reasons" id="reason6" value="-5" disabled>
-                            <label class="form-check-label" for="reason6" title="The website did not load">
-                                Website not loading 
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input input-reason danger" type="radio" name="reasons" id="reason4" value="-3" disabled>
-                            <label class="form-check-label" for="reason4" title="There was another issue not covered by the other options">
-                                Other problem
-                            </label>
                         </div>
                     </div>
                 </div>

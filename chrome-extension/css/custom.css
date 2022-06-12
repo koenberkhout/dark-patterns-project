@@ -28,7 +28,7 @@ input[type="radio"]:checked+label .fe-circle {
 input[type="radio"]:not(:checked)+label .fe-check-circle {
     display: none;
 }
-.btn:disabled, .form-check-input:disabled~.form-check-label, .form-check-input[disabled]~.form-check-label {
+.btn:disabled, .form-check-input:disabled~.form-check-label, .form-check-input[disabled]~.form-check-label, .form-select:disabled {
     cursor: not-allowed !important;
     pointer-events: all !important;
 }

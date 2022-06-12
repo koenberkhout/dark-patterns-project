@@ -70,8 +70,10 @@ class Controller {
         foreach ($this->MODES as $mode) {
             $stats['completed_' . $mode] = count(array_filter($result, fn ($item) => $item[$mode . '_completed'] !== null));
         }
+        // Add reasons
+        $reasons = $f3->db->exec("SELECT * FROM `reasons`");
         
-        echo json_encode($stats);
+        echo json_encode(array("stats" => $stats, "reasons" => $reasons));
     }
 
 
