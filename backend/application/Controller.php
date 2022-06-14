@@ -91,7 +91,7 @@ class Controller {
         // Determine which url to visit next
         $f3->db->begin();
         $column_fetches = $mode . '_fetches';
-        $result = $f3->db->exec("SELECT * FROM `website` LEFT OUTER JOIN `recording` ON `website`.url = `recording`.website_url WHERE `website_id` % {$numkeys} = {$key_index} ORDER BY `{$column_fetches}`");
+        $result = $f3->db->exec("SELECT * FROM `website` LEFT OUTER JOIN `recording` ON `website`.url = `recording`.website_url WHERE `website_id` % {$numkeys} = {$key_index} ORDER BY `{$column_fetches}` ASC, `rank` ASC");
         if (!$result) {
             $f3->db->commit();
             echo json_encode("");
