@@ -3,7 +3,7 @@
   "version": "1.0",
   "manifest_version": 2,
   "description": "This extension visits websites semi-automatically, and records all placed cookies and the number of clicks required to accept all/deny all.",
-  "homepage_url": "https://github.com/koenberkhout/Dark-Patterns-Cookie-Helper",
+  "homepage_url": "https://github.com/koenberkhout/dark-patterns-project",
   "icons": {
     "16": "icons/icon16.png",
     "48": "icons/icon48.png",
