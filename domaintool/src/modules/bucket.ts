@@ -1,4 +1,4 @@
-import { shuffle, union } from 'lodash-es';
+import { shuffle } from 'lodash-es';
 import { performance } from 'perf_hooks';
 import { getPublicSuffix, getDomain } from 'tldts';
 import fse from 'fs-extra';
