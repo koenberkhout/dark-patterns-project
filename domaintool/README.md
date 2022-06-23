@@ -1,4 +1,4 @@
-# Domainchecker
+# Domaintool
 ## Rationale
 Early experiments using [Tranco](https://tranco-list.eu/) show that there are a lot of 'bad' websites in the list. Some may be known to spread malware, host porn, are unreachable or serve no content at all. Some are in a language that we are not able to understand without the use of a translation service. When using a fully automated solution this may be acceptable, but when manually inspecting websites it becomes cumbersome. That's why this tool has been developed.
 
@@ -23,4 +23,4 @@ When creating buckets, domains are progressively filtered using various ([OSINT]
 This example uses the Tranco top 1 million websites and fills each bucket with limit=1 valid domain.
 
 
-![screenshot](https://github.com/koenberkhout/Dark-Patterns-Cookie-Helper/blob/main/domaintool/screenshot.png?raw=true)
+![screenshot](https://github.com/koenberkhout/dark-patterns-project/blob/main/domaintool/screenshot.png?raw=true)

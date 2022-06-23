@@ -1,4 +1,4 @@
-# Dark Patterns Cookie Helper
+# Dark Patterns Project
 
 ## Chrome extension
 - In `chrome-extension/js/conf.example.js`, set the constant **API_URL** to the URL of your own backend and rename the file to `conf.js`.
@@ -11,5 +11,5 @@
 - Make sure the full path of the `application` directory is listed in PHP's include path. Usually this looks something like `/home/username/domains/example.com/application`.
 - Install the dependencies using Composer by running `composer update` (using composer.json) or `composer install` (using composer.json locked to the versions in composer.lock).
 
-## Tool: domainchecker
-See https://github.com/koenberkhout/Dark-Patterns-Cookie-Helper/tree/main/tools/domainchecker.
+## Domaintool
+See https://github.com/koenberkhout/dark-patterns-project/tree/main/domaintool.
