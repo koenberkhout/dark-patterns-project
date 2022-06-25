@@ -1,6 +1,6 @@
 {
   "type": "module",
-  "name": "ou-dark-patterns-domaintool",
+  "name": "domaintool",
   "version": "1.0.0",
   "description": "The domaintool filters bad websites and generates domain buckets for the Dark Patterns project.",
   "main": "index.ts",

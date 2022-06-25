@@ -149,14 +149,25 @@ class Controller {
             $this->dieWith(400);
         }
 
-        // Insert cookies into database (the copyFrom function is safe from SQL injection)
+        // Insert cookies into database
         $f3->db->begin();
+        $cookie_names_in_db = [];
+        $result = $f3->db->exec("SELECT `cookie_name` FROM `purpose`");
+        if (is_array($result)) {
+            $cookie_names_in_db = array_map(fn($obj) => $obj['cookie_name'], $result);
+        }
+        $cookie_names = array_unique(array_filter(array_map(fn($obj) => $obj->name, $cookies), fn($name) => !in_array($name, $cookie_names_in_db)));
+        foreach ($cookie_names as $cookie_name) {
+            echo json_encode("insert " . $cookie_name);
+            $f3->db->exec("INSERT INTO `purpose` (`cookie_name`, `cookiepedia`, `cookiedatabase`, `opencookiedatabase`) VALUES (?, NULL, NULL, NULL);", array($cookie_name));
+        }
         $f3->db->exec("DELETE FROM `recording` WHERE `website_url` = (?) AND `mode` = '{$mode}'", array($url));
         $f3->db->exec("INSERT INTO `recording` (`website_url`, `reason_id`, `mode`, `clicks`) VALUES (?,?,?,?)", array($url, $reason, $mode, $clicks));
         $recording_id = $f3->db->lastInsertId();
         $cookie_mapper = new DB\SQL\Mapper($f3->db, 'cookie');
         foreach ($cookies as $cookie) {
             $cookie->recording_id = $recording_id;
+            // The copyFrom function is safe from SQL injection:
             $cookie_mapper->copyFrom($cookie);
             $cookie_mapper->save();
             $cookie_mapper->reset();
