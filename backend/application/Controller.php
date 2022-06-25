@@ -8,6 +8,11 @@ class Controller {
         'deny_basic', 
         'deny_advanced'
     );
+    private $WHICHES = array(
+        'cookiepedia', 
+        'cookiedatabase', 
+        'opencookiedatabase'
+    );
     private $HTTP_STATUSES = array(
         400 => 'Bad Request',
         401 => 'Authentication Failed',
@@ -175,5 +180,32 @@ class Controller {
         $f3->db->commit();
 
         echo json_encode("Cookies successfully recorded.");
+    }
+
+    // 'GET /unpurposed-cookie-names/'
+    function unpurposedCookieNames($f3,$args) {
+        $result = $f3->db->exec("SELECT * FROM `purpose` WHERE `cookiepedia` IS NULL OR `cookiedatabase` IS NULL OR `opencookiedatabase` IS NULL;");
+        if (is_array($result) && count($result)) {
+            echo json_encode($result);
+            die;
+        }
+        echo json_encode('There are no unpurposed cookies in the database.');
+    }
+
+    // 'POST /report-cookie-purposes/@which'
+    function reportCookiePurposes($f3,$args) {
+        $which = $args['which'];
+        if (!in_array($which, $this->WHICHES)) {
+            $this->dieWith(400);
+        }
+        $cookie_purposes = json_decode($f3->BODY, false);
+        if (is_array($cookie_purposes) && count($cookie_purposes)) {
+            $f3->db->begin();
+            foreach ($cookie_purposes as $cookie_purpose) {
+                $f3->db->exec("UPDATE `purpose` SET `{$which}` = ? WHERE `cookie_name` = ?", array($cookie_purpose->purpose, $cookie_purpose->cookieName));
+            }
+            $f3->db->commit();
+        }
+        echo json_encode('Purposes successfully added');
     }
 }

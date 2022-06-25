@@ -27,11 +27,13 @@ $f3->set('DEBUG', 3);
 // TODO [end]
 
 // Endpoints
-$f3->route('GET  /',                          'Controller->root');
-$f3->route('GET  /stats-reasons',             'Controller->statsAndReasons');
-$f3->route('GET  /validate-key',              'Controller->validateKey');
-$f3->route('GET  /next-website/@mode',        'Controller->nextWebsite');
-$f3->route('POST /report-cookies/@mode/@url', 'Controller->reportCookiesAndClicks');
+$f3->route('GET  /',                              'Controller->root');
+$f3->route('GET  /stats-reasons',                 'Controller->statsAndReasons');
+$f3->route('GET  /validate-key',                  'Controller->validateKey');
+$f3->route('GET  /next-website/@mode',            'Controller->nextWebsite');
+$f3->route('POST /report-cookies/@mode/@url',     'Controller->reportCookiesAndClicks');
+$f3->route('GET  /unpurposed-cookie-names',       'Controller->unpurposedCookieNames');
+$f3->route('POST /report-cookie-purposes/@which', 'Controller->reportCookiePurposes');
 
 // Start routing
 $f3->run();

@@ -1,0 +1,12 @@
+{
+    "module": "nodenext",
+    "extends": "@tsconfig/node16-strictest-esm/tsconfig.json",
+    "compilerOptions": {
+      "rootDir": "src",
+      "outDir": "./build",
+      "resolveJsonModule": true
+    },
+    "include": [
+      "src/**/*.ts"
+    ],
+}
