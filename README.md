@@ -1,4 +1,4 @@
-# Dark Patterns Project
+# Cookie Dialog Compliance (formerly Dark Patterns Project)
 
 ## Chrome extension
 - In `chrome-extension/js/conf.example.js`, set the constant **API_URL** to the URL of your own backend and rename the file to `conf.js`.
