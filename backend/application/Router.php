@@ -19,13 +19,6 @@ $db = new DB\SQL(
 );
 $f3->set('db', $db);
 
-// TODO [start] remove in production
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-$f3->set('DEBUG', 3);
-// TODO [end]
-
 // Endpoints
 $f3->route('GET  /',                              'Controller->root');
 $f3->route('GET  /stats-reasons',                 'Controller->statsAndReasons');

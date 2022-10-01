@@ -8,7 +8,7 @@ class Controller {
         'deny_basic', 
         'deny_advanced'
     );
-    private $WHICHES = array(
+    private $SOURCES = array(
         'cookiepedia', 
         'cookiedatabase', 
         'opencookiedatabase'
@@ -19,10 +19,8 @@ class Controller {
     );
     private $API_ENTRIES = [];
 
-
+    // Pupulate $API_ENTRIES with values from .env
     function __construct() {
-        // Initialize $API_ENTRIES here to circumvent error
-        // 'Constant expression contains invalid operations'.
         $api_entries = explode(',', $_ENV['API_ENTRIES']);
         foreach ($api_entries as $api_entry) {
             $splitted = explode(':', $api_entry);
@@ -154,7 +152,11 @@ class Controller {
             $this->dieWith(400);
         }
 
-        // Insert cookies into database
+        $this->insertCookiesIntoDatabase($f3, $cookies, $url, $reason, $mode, $clicks);
+        echo json_encode("Cookies successfully recorded.");
+    }
+
+    private function insertCookiesIntoDatabase($f3, $cookies, $url, $reason, $mode, $clicks) {
         $f3->db->begin();
         $cookie_names_in_db = [];
         $result = $f3->db->exec("SELECT `cookie_name` FROM `purpose`");
@@ -178,8 +180,6 @@ class Controller {
             $cookie_mapper->reset();
         }
         $f3->db->commit();
-
-        echo json_encode("Cookies successfully recorded.");
     }
 
     // 'GET /unpurposed-cookie-names/'
@@ -195,7 +195,7 @@ class Controller {
     // 'POST /report-cookie-purposes/@which'
     function reportCookiePurposes($f3,$args) {
         $which = $args['which'];
-        if (!in_array($which, $this->WHICHES)) {
+        if (!in_array($which, $this->SOURCES)) {
             $this->dieWith(400);
         }
         $cookie_purposes = json_decode($f3->BODY, false);
