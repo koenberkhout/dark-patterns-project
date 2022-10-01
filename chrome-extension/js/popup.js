@@ -108,7 +108,6 @@ function fetchStatsAndReasons() {
 
 function updateReasons(reasons) {
     reasons.forEach(reason => {
-        console.log(reason);
         selectReasons.add(new Option(reason.description, reason.reason_id, reason.is_default, reason.is_default));
     });
 }
@@ -209,6 +208,7 @@ function recordCookiesAndClicks() {
                 cookie['website_url'] = website;
                 cookie['mode'] = currentMode;
                 delete cookie['store_id'];
+                // console.log(cookie);
             });
             fetch(prepareUrl(URL_REPORT_COOKIES, [['@mode',currentMode], ['@url',website]]), {
                 method: 'POST',

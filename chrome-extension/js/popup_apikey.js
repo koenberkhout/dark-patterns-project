@@ -1,3 +1,5 @@
+const URL_VALIDATE_KEY = API_URL + '/validate-key';
+
 const year          = document.getElementById("year");
 const btnGotoMain   = document.getElementById("btn_goto_main");
 const inputApiKey   = document.getElementById("input_api_key");
@@ -6,8 +8,6 @@ const btnShowApiKey = document.getElementById("btn_show_api_key");
 const btnSaveApiKey = document.getElementById("btn_save_api_key");
 const badgeValid    = document.getElementById("badge_valid");
 const badgeInvalid  = document.getElementById("badge_invalid");
-
-const URL_VALIDATE_KEY = API_URL + '/validate-key';
 
 let apiKey = null;
 
@@ -75,9 +75,6 @@ function saveApiKey() {
     chrome.storage.local.set({ api_key: apiKey }, validateApiKey);
 }
 
-/**
- * TODO
- */
 function validateApiKey() {
     fetch(prepareUrl(URL_VALIDATE_KEY))
     .then(res => {
