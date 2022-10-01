@@ -46,11 +46,22 @@ const App = class {
         console.log(this.table.toString());
         await Promise.allSettled(jobs.map((job) => job.waitUntilFinished(queueEvents)));
       }
-      console.log(this.selectedDomainsDict[bucketIndex]);
+      const selectedDomains = this.selectedDomainsDict[bucketIndex]!;
+      console.log(selectedDomains);
+      // this.printSqlInserts(selectedDomains, bucketEntries);
     }
     await queue.obliterate();
     await queue.close();
     // Dns.printTotalTimes();
+  }
+
+  static async printSqlInserts(selectedDomains: string[], bucketEntries: { rank: number, domain: string }[]) {
+    // eslint-disable-next-line no-restricted-syntax
+    for (const selectedDomain of selectedDomains) {
+      const entry = bucketEntries.find((bucketEntry) => bucketEntry.domain === selectedDomain);
+      const rank = entry?.rank ?? -1;
+      console.log(`INSERT INTO \`website\` (\`rank\`, \`url\`) VALUES (${rank}, '${selectedDomain}');`);
+    }
   }
 
   /**
@@ -119,7 +130,7 @@ const App = class {
   /**
    * Initialize
    * @param numberOfBuckets
-   * @returns queue
+   * @returns queue, queueEvents
    */
   static async init(numberOfBuckets: number): Promise<{queue: Queue, queueEvents: QueueEvents}> {
     EventEmitter.setMaxListeners(Number.MAX_SAFE_INTEGER);

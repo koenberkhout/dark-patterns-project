@@ -18,22 +18,23 @@ const Config = class {
    * BUCKET
    */
   static Bucket = class {
+    // document
     static readonly RANGES = [
-      { start: 0, end: 5000, selectLimit: 200 },
-      { start: 5000, end: 25000, selectLimit: 200 },
-      { start: 25000, end: 100000, selectLimit: 200 },
-      { start: 100000, end: 1000000, selectLimit: 200 },
+      { start: 1, end: 5000, selectLimit: 5 },
+      { start: 5001, end: 25000, selectLimit: 5 },
+      { start: 25001, end: 100000, selectLimit: 5 },
+      { start: 100001, end: 1000000, selectLimit: 5 },
     ];
     static readonly SIZE_LIMIT = 50000;
     static readonly DOMAIN_LENGTH_LIMIT = 30;
-    private static readonly GENERIC_TLDS = ['org', 'net', 'edu', 'info', 'com'];
-    private static readonly EU_TLDS = [
+    static readonly GENERIC_TLDS = ['org', 'net', 'edu', 'info', 'com', 'io'];
+    static readonly EU_TLDS = [
       'at', 'be', 'bg', 'hr', 'cy', 'cz', 'dk', 'ee', 'fi', 'fr', 'de',
       'gr', 'hu', 'ie', 'it', 'lv', 'lt', 'lu', 'mt', 'nl', 'pl', 'pt',
       'ro', 'sk', 'si', 'es', 'se', 'gb', 'gf', 'gp', 'mq', 'me', 'yt',
       're', 'mf', 'gi', 'ax', 'pm', 'gl', 'bl', 'sx', 'aw', 'cw', 'wf',
-      'pf', 'nc', 'tf', 'ai', 'bm', 'io', 'vg', 'ky', 'fk', 'ms', 'pn',
-      'sh', 'gs', 'tc', 'ad', 'li', 'mc', 'sm', 'va', 'je', 'gg', 'gi',
+      'pf', 'nc', 'tf', 'ai', 'bm', 'gi', 'vg', 'ky', 'fk', 'ms', 'pn',
+      'sh', 'gs', 'tc', 'ad', 'li', 'mc', 'sm', 'va', 'je', 'gg',
     ];
     static readonly ALLOWED_TLDS = union(this.EU_TLDS, this.GENERIC_TLDS);
   };
